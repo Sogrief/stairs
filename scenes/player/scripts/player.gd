@@ -1,10 +1,11 @@
 extends CharacterBody2D
 
+#constantes
 const SPEED : float = 300.0
 const JUMP_VELOCITY : float = -400.0
 
+#autres variables
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-
 
 func _physics_process(delta):
 	if not is_on_floor():
