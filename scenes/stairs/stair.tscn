@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://f3l6vk2blvxj"]
+
+[ext_resource type="Texture2D" uid="uid://dyiyir2y3vruv" path="res://scenes/stairs/assets/tile_set_base.jpg" id="1_fq07o"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7q0cc"]
+texture = ExtResource("1_fq07o")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_3do0n"]
+sources/1 = SubResource("TileSetAtlasSource_7q0cc")
+
+[node name="Stairs" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_3do0n")
+format = 2
+layer_0/tile_data = PackedInt32Array(131074, 1, 0, 131078, 1, 0, 131082, 1, 0, 393218, 1, 0, 393222, 1, 0, 393226, 1, 0)
