@@ -1,12 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dlh4j7baqcd0a"]
+[gd_scene load_steps=2 format=3 uid="uid://dlh4j7baqcd0a"]
 
-[ext_resource type="PackedScene" uid="uid://f3l6vk2blvxj" path="res://scenes/stairs/stair.tscn" id="1_x3s6r"]
 [ext_resource type="PackedScene" uid="uid://burikkdqjftcb" path="res://scenes/player/player.tscn" id="2_tvdgu"]
 
 [node name="main" type="Node2D"]
 
 [node name="player" parent="." instance=ExtResource("2_tvdgu")]
 position = Vector2(436, 203)
-
-[node name="Stairs" parent="." instance=ExtResource("1_x3s6r")]
-position = Vector2(81, 297)
