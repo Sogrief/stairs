@@ -13,7 +13,7 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
-	if Input.is_action_just_pressed("jump") and is_on_floor() || jump_count > 0:
+	if Input.is_action_just_pressed("jump") and (is_on_floor() || jump_count > 0):
 		jump_count = 0
 		velocity.y = JUMP_VELOCITY
 
@@ -29,9 +29,9 @@ func _physics_process(delta):
 
 func _on_area_2d_body_entered(body):
 	if body is TileMap:
-		jump_count = 0
+		jump_count = 1
 
 
 func _on_area_2d_body_exited(body):
 	if body is TileMap:
-		jump_count = 1
+		pass
