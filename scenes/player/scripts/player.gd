@@ -21,3 +21,12 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
+
+func _on_area_2d_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
+	if body is TileMap:
+		print("entered")
+
+
+func _on_area_2d_body_shape_exited(body_rid, body, body_shape_index, local_shape_index):
+	if body is TileMap:
+		print("exited")
