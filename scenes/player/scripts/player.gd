@@ -7,13 +7,16 @@ const JUMP_VELOCITY : float = -550.0
 #autres variables
 var gravity : int = 980
 var jump_count : int = 0
+var wall_jump_sensitivity : int = 10 #velocity en y minimal pour pouvoir effectuer le prochain wall jump
 
 func _physics_process(delta):
+	
+	print(velocity.y)
 	
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
-	if Input.is_action_just_pressed("jump") and (is_on_floor() || jump_count > 0):
+	if Input.is_action_just_pressed("jump") and (is_on_floor() || (jump_count > 0 and velocity.y > wall_jump_sensitivity)):
 		jump_count = 0
 		velocity.y = JUMP_VELOCITY
 
