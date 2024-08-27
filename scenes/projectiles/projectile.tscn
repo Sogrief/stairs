@@ -1,15 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://d3pv7pb8xkfho"]
+[gd_scene load_steps=4 format=3 uid="uid://d3pv7pb8xkfho"]
 
 [ext_resource type="Texture2D" uid="uid://21qwpm55fcqs" path="res://scenes/projectiles/assets/projectile.png" id="1_fvof1"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vssvg"]
+friction = 0.51
+bounce = 0.2
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_11frr"]
+radius = 125.004
 
 [node name="projectile" type="RigidBody2D"]
-scale = Vector2(4.39233, 4.39233)
+physics_material_override = SubResource("PhysicsMaterial_vssvg")
 
 [node name="sprite_2d" type="Sprite2D" parent="."]
 rotation = 3.14159
-scale = Vector2(0.0778502, 0.0778502)
 texture = ExtResource("1_fvof1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
