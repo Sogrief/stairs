@@ -3,17 +3,20 @@
 [ext_resource type="PackedScene" uid="uid://pklwlhm18nvx" path="res://scenes/stairs/stair.tscn" id="1_x3s6r"]
 [ext_resource type="PackedScene" uid="uid://burikkdqjftcb" path="res://scenes/player/player.tscn" id="2_tvdgu"]
 [ext_resource type="PackedScene" uid="uid://d3pv7pb8xkfho" path="res://scenes/projectiles/projectile.tscn" id="3_6vax7"]
-[ext_resource type="Script" path="res://scenes/level/spawn_projectiles.gd" id="3_gllfd"]
+[ext_resource type="Script" path="res://scenes/projectiles/scripts/spawn_projectiles.gd" id="3_gllfd"]
 
 [node name="main" type="Node2D"]
 
 [node name="player" parent="." instance=ExtResource("2_tvdgu")]
 position = Vector2(436, 203)
 
-[node name="Stairs" parent="." instance=ExtResource("1_x3s6r")]
+[node name="stairs" parent="." instance=ExtResource("1_x3s6r")]
 position = Vector2(502, -85)
 
 [node name="projectiles" type="Node2D" parent="."]
+unique_name_in_owner = true
 position = Vector2(502, -85)
 script = ExtResource("3_gllfd")
 projectile = ExtResource("3_6vax7")
+
+[connection signal="child_entered_tree" from="projectiles" to="player" method="_on_projectiles_child_entered_tree"]

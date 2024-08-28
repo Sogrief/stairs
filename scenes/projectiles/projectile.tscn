@@ -30,4 +30,4 @@ shape = SubResource("CircleShape2D_gl7oi")
 [node name="collision_shape_2d" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_11frr")
 
-[connection signal="body_shape_entered" from="area_2d" to="." method="_on_area_2d_body_shape_entered"]
+[connection signal="body_entered" from="area_2d" to="." method="_on_area_2d_body_entered"]

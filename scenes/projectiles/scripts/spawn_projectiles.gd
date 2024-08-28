@@ -4,8 +4,6 @@ extends Node2D
 var timer : float = 1.0
 
 func _process(delta):
-	print(timer)
-	
 	timer -= delta
 	
 	if timer < 0.0:

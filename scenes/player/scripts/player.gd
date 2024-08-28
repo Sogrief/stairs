@@ -1,3 +1,4 @@
+class_name player
 extends CharacterBody2D
 
 #constantes
@@ -5,6 +6,7 @@ const SPEED : float = 300.0
 const JUMP_VELOCITY : float = -550.0
 
 #autres variables
+@onready var projectile_spawner = %projectiles
 var gravity : int = 980
 var jump_count : int = 0
 var wall_jump_sensitivity : int = 10 #velocité minimal en y pour pouvoir effectuer le prochain wall jump
@@ -28,6 +30,9 @@ func _physics_process(delta):
 	move_and_slide()
 
 
+func death():
+	print("death")
+
 func _on_area_2d_body_entered(body):
 	if body is TileMap:
 		if velocity.y > wall_jump_sensitivity:
@@ -37,3 +42,7 @@ func _on_area_2d_body_entered(body):
 func _on_area_2d_body_exited(body):
 	if body is TileMap:
 		pass
+
+func _on_projectiles_child_entered_tree(node):
+	if node is projectile:
+		node.player_collision.connect(death)
