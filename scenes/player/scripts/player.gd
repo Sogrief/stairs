@@ -29,15 +29,13 @@ func _physics_process(delta):
 
 	move_and_slide()
 
-
 func death():
-	game_over_menu.show()
+	game_over_menu.show() #affiche le menu game over quand le joueur meurt
 
 func _on_area_2d_body_entered(body):
 	if body is TileMap:
 		if velocity.y > wall_jump_sensitivity:
 			jump_count = 1
-
 
 func _on_area_2d_body_exited(body):
 	if body is TileMap:
