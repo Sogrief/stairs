@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://bo211cm2ca2h"]
+
+[node name="game_over_menu" type="CanvasLayer"]
+
+[node name="menu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="center_container" type="CenterContainer" parent="menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="vbox_container" type="VBoxContainer" parent="menu/center_container"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="label" type="Label" parent="menu/center_container/vbox_container"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "game over"
+
+[node name="button" type="Button" parent="menu/center_container/vbox_container"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "retry"
