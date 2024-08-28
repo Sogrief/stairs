@@ -86,6 +86,7 @@ position = Vector2(715, 173)
 rotation = -0.0107468
 
 [node name="sprite_2d" type="Sprite2D" parent="path_2d/path_follow_2d"]
+unique_name_in_owner = true
 texture = ExtResource("6_mlxdq")
 
 [connection signal="child_entered_tree" from="projectiles" to="player" method="_on_projectiles_child_entered_tree"]

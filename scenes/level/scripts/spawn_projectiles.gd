@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var projectile : PackedScene
+@onready var projectile_spawner := %sprite_2d
 var timer : float = 1.0
 
 func _process(delta):
