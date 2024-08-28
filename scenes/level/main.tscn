@@ -1,11 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://dlh4j7baqcd0a"]
+[gd_scene load_steps=6 format=3 uid="uid://dlh4j7baqcd0a"]
 
+[ext_resource type="Script" path="res://scenes/level/scripts/game_manager.gd" id="1_jtdce"]
 [ext_resource type="PackedScene" uid="uid://pklwlhm18nvx" path="res://scenes/stairs/stair.tscn" id="1_x3s6r"]
 [ext_resource type="PackedScene" uid="uid://burikkdqjftcb" path="res://scenes/player/player.tscn" id="2_tvdgu"]
 [ext_resource type="PackedScene" uid="uid://d3pv7pb8xkfho" path="res://scenes/projectiles/projectile.tscn" id="3_6vax7"]
-[ext_resource type="Script" path="res://scenes/projectiles/scripts/spawn_projectiles.gd" id="3_gllfd"]
+[ext_resource type="Script" path="res://scenes/level/scripts/spawn_projectiles.gd" id="3_gllfd"]
 
 [node name="main" type="Node2D"]
+script = ExtResource("1_jtdce")
 
 [node name="player" parent="." instance=ExtResource("2_tvdgu")]
 position = Vector2(436, 203)
@@ -19,4 +21,39 @@ position = Vector2(502, -85)
 script = ExtResource("3_gllfd")
 projectile = ExtResource("3_6vax7")
 
+[node name="game_over_menu" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="menu" type="Control" parent="game_over_menu"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="center_container" type="CenterContainer" parent="game_over_menu/menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="vbox_container" type="VBoxContainer" parent="game_over_menu/menu/center_container"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="label" type="Label" parent="game_over_menu/menu/center_container/vbox_container"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "game over"
+
+[node name="button" type="Button" parent="game_over_menu/menu/center_container/vbox_container"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "retry"
+
 [connection signal="child_entered_tree" from="projectiles" to="player" method="_on_projectiles_child_entered_tree"]
+[connection signal="pressed" from="game_over_menu/menu/center_container/vbox_container/button" to="." method="_on_button_pressed"]

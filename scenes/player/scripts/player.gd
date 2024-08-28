@@ -6,7 +6,7 @@ const SPEED : float = 300.0
 const JUMP_VELOCITY : float = -550.0
 
 #autres variables
-@onready var projectile_spawner = %projectiles
+@onready var game_over_menu := %game_over_menu
 var gravity : int = 980
 var jump_count : int = 0
 var wall_jump_sensitivity : int = 10 #velocité minimal en y pour pouvoir effectuer le prochain wall jump
@@ -29,15 +29,13 @@ func _physics_process(delta):
 
 	move_and_slide()
 
-
 func death():
-	print("death")
+	game_over_menu.show() #affiche le menu game over quand le joueur meurt
 
 func _on_area_2d_body_entered(body):
 	if body is TileMap:
 		if velocity.y > wall_jump_sensitivity:
 			jump_count = 1
-
 
 func _on_area_2d_body_exited(body):
 	if body is TileMap:
