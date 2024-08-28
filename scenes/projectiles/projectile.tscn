@@ -8,10 +8,10 @@ friction = 0.51
 bounce = 0.2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gl7oi"]
-radius = 144.014
+radius = 69.0072
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_11frr"]
-radius = 125.004
+radius = 61.0082
 
 [node name="projectile" type="RigidBody2D"]
 physics_material_override = SubResource("PhysicsMaterial_vssvg")
@@ -19,6 +19,7 @@ script = ExtResource("1_8ye1t")
 
 [node name="sprite_2d" type="Sprite2D" parent="."]
 rotation = 3.14159
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_fvof1")
 
 [node name="area_2d" type="Area2D" parent="."]
