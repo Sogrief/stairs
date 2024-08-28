@@ -1,16 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://dlh4j7baqcd0a"]
+[gd_scene load_steps=8 format=3 uid="uid://dlh4j7baqcd0a"]
 
 [ext_resource type="Script" path="res://scenes/level/scripts/game_manager.gd" id="1_jtdce"]
 [ext_resource type="PackedScene" uid="uid://pklwlhm18nvx" path="res://scenes/stairs/stair.tscn" id="1_x3s6r"]
 [ext_resource type="PackedScene" uid="uid://burikkdqjftcb" path="res://scenes/player/player.tscn" id="2_tvdgu"]
 [ext_resource type="PackedScene" uid="uid://d3pv7pb8xkfho" path="res://scenes/projectiles/projectile.tscn" id="3_6vax7"]
 [ext_resource type="Script" path="res://scenes/level/scripts/spawn_projectiles.gd" id="3_gllfd"]
+[ext_resource type="Texture2D" uid="uid://dyiyir2y3vruv" path="res://scenes/stairs/assets/tile_set_base.jpg" id="6_mlxdq"]
+
+[sub_resource type="Curve2D" id="Curve2D_5dean"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 715, 173, 0, 0, 0, 0, 2669, 152, 0, 0, 0, 0, 4338, 55, 0, 0, 0, 0, 5772, -488, 0, 0, 0, 0, 7736, -979, 0, 0, 0, 0, 9865, -1719, 0, 0, 0, 0, 11624, -2550, 0, 0, 0, 0, 13716, -3735, 0, 0, 0, 0, 16215, -5616, 0, 0, 0, 0, 18834, -8635, 0, 0, 0, 0, 20829, -10830, 0, 0, 0, 0, 22036, -13291)
+}
+point_count = 12
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_jtdce")
 
 [node name="player" parent="." instance=ExtResource("2_tvdgu")]
-position = Vector2(436, 203)
+position = Vector2(498, 226)
 
 [node name="stairs" parent="." instance=ExtResource("1_x3s6r")]
 position = Vector2(502, -85)
@@ -20,6 +27,22 @@ unique_name_in_owner = true
 position = Vector2(502, -85)
 script = ExtResource("3_gllfd")
 projectile = ExtResource("3_6vax7")
+
+[node name="border" type="CanvasLayer" parent="."]
+
+[node name="margin-container" type="MarginContainer" parent="border"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = -20
+theme_override_constants/margin_top = -20
+theme_override_constants/margin_right = -20
+theme_override_constants/margin_bottom = -20
+
+[node name="spawn_projectile_border" type="ReferenceRect" parent="border/margin-container"]
+layout_mode = 2
 
 [node name="game_over_menu" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
@@ -54,6 +77,16 @@ text = "game over"
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "retry"
+
+[node name="path_2d" type="Path2D" parent="."]
+curve = SubResource("Curve2D_5dean")
+
+[node name="path_follow_2d" type="PathFollow2D" parent="path_2d"]
+position = Vector2(715, 173)
+rotation = -0.0107468
+
+[node name="sprite_2d" type="Sprite2D" parent="path_2d/path_follow_2d"]
+texture = ExtResource("6_mlxdq")
 
 [connection signal="child_entered_tree" from="projectiles" to="player" method="_on_projectiles_child_entered_tree"]
 [connection signal="pressed" from="game_over_menu/menu/center_container/vbox_container/button" to="." method="_on_button_pressed"]
