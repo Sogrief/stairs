@@ -17,6 +17,7 @@ point_count = 12
 script = ExtResource("1_jtdce")
 
 [node name="player" parent="." instance=ExtResource("2_tvdgu")]
+unique_name_in_owner = true
 position = Vector2(498, 226)
 
 [node name="stairs" parent="." instance=ExtResource("1_x3s6r")]
@@ -79,6 +80,7 @@ theme_override_font_sizes/font_size = 32
 text = "retry"
 
 [node name="path_2d" type="Path2D" parent="."]
+unique_name_in_owner = true
 curve = SubResource("Curve2D_5dean")
 
 [node name="path_follow_2d" type="PathFollow2D" parent="path_2d"]
