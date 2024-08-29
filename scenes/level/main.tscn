@@ -84,6 +84,7 @@ unique_name_in_owner = true
 curve = SubResource("Curve2D_5dean")
 
 [node name="path_follow_2d" type="PathFollow2D" parent="path_2d"]
+unique_name_in_owner = true
 position = Vector2(715, 173)
 rotation = -0.0107468
 
