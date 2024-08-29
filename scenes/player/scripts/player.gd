@@ -41,6 +41,6 @@ func _on_area_2d_body_exited(body):
 	if body is TileMap:
 		pass
 
-func _on_projectiles_child_entered_tree(node):
-	if node is projectile:
+func _on_main_child_entered_tree(node):
+	if node is projectile: # vérifie si un projectile est ajouté à la scène
 		node.player_collision.connect(death)

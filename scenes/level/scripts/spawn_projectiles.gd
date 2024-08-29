@@ -1,7 +1,8 @@
 extends Node2D
 
 @export var projectile : PackedScene
-@onready var projectile_launcher := %sprite_2d # lanceur de projectile
+@onready var projectile_launcher : Sprite2D = %projectile_launcher
+@onready var projectiles_spawn : Node2D = %projectiles
 @onready var path : Path2D = %path_2d # parcours 2D de la map
 @onready var path_follow : PathFollow2D = %path_follow_2d
 @onready var player : CharacterBody2D = %player # joueur
@@ -13,25 +14,30 @@ var timer : float = 1.0 # le délai entre chaque projectile
 
 func _ready():
 	path_points = get_all_points_from_path(path) # récupération de tous les points du path2D
+	closest_point = path_points[get_closest_path_point(path_points, player_position)]
 
 func _process(delta):
 	player_position = player.global_position
-	closest_point = path_points[get_closest_path_point(path_points, player_position)]
 	
-	var player_distance = path.curve.get_closest_offset(closest_point) #distance approximative parcourue
-	var progress_ratio = player_distance / path.curve.get_baked_length() #progress ratio approximatif du joueur
-	#print(path.curve.get_baked_length())
+	if closest_point != path_points[get_closest_path_point(path_points, player_position)]: # si le point le plus proche a changé
+		self.global_position = projectile_launcher.global_position # mise à jour de la position du spawn des projectiles
+		closest_point = path_points[get_closest_path_point(path_points, player_position)] # mise à jour du point le plus proche
+	
+	var player_distance = path.curve.get_closest_offset(closest_point) # distance approximative parcourue
+	var progress_ratio = player_distance / path.curve.get_baked_length() # progress ratio approximatif du joueur
 	
 	path_follow.progress_ratio = progress_ratio + 0.2
-	
+		
+	#spawn des projectiles
 	timer -= delta
 	
 	if timer < 0.0:
 		timer = 1.0
 		
 		# ajout d'un nouveau projectile
-		var projectile_instance = projectile.instantiate()
-		add_child(projectile_instance)
+		var projectile_instance = projectile.instantiate() # création d'une instance du projectile
+		get_tree().current_scene.add_child(projectile_instance) # ajout du projectile à la scène
+		projectile_instance.global_position = self.global_position # spécifie la position du projectile égale à celle du spawner
 		
 
 func get_closest_path_point(points : Array, player_pos : Vector2):
@@ -43,8 +49,7 @@ func get_closest_path_point(points : Array, player_pos : Vector2):
 		
 	return distances_from_player.find(distances_from_player.min()) # retourne l'indice du point le plus proche du joueur
 	
-		
-
+	
 func get_all_points_from_path(path : Path2D) -> Array: # méthode qui récupère tous les points du Path 2D
 	var points = []
 	
