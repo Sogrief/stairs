@@ -2,7 +2,6 @@ extends Node2D
 
 @export var projectile : PackedScene
 @onready var projectile_launcher : Sprite2D = %projectile_launcher
-@onready var projectiles_spawn : Node2D = %projectiles
 @onready var path : Path2D = %path_2d # parcours 2D de la map
 @onready var path_follow : PathFollow2D = %path_follow_2d
 @onready var player : CharacterBody2D = %player # joueur
