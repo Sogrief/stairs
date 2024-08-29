@@ -3,17 +3,22 @@ extends Node2D
 @export var projectile : PackedScene
 @onready var projectile_launcher := %sprite_2d # lanceur de projectile
 @onready var path : Path2D = %path_2d # parcours 2D de la map
-@onready var player : CharacterBody2D = %player
+@onready var player : CharacterBody2D = %player # joueur
 
-var path_points : Array
-var player_position : Vector2
-var timer : float = 1.0
+var path_points : Array # l'ensemble des points du path2D
+var player_position : Vector2 # la position en temps réel du joueur
+var closest_point : Vector2
+var timer : float = 1.0 # le délai entre chaque projectile
 
 
 func _ready():
-	path_points = get_all_points_from_path(path)# récupération de tous les points du path2D
+	path_points = get_all_points_from_path(path) # récupération de tous les points du path2D
 
 func _process(delta):
+	closest_point = path_points[get_closest_path_point(path_points, player_position)]
+	print(closest_point)
+	
+	
 	player_position = player.global_position
 	
 	timer -= delta
@@ -25,8 +30,19 @@ func _process(delta):
 		var projectile_instance = projectile.instantiate()
 		add_child(projectile_instance)
 		
+
+func get_closest_path_point(points : Array, player_pos : Vector2):
+	var distances_from_player : Array = []
+	
+	for i in range(points.size()):
+		var distance = points[i].distance_to(player_pos) #distance entre le joueur et chaque point du path
+		distances_from_player.append(distance)
 		
-func get_all_points_from_path(path: Path2D) -> Array: # méthode qui récupère tous les points du Path 2D
+	return distances_from_player.find(distances_from_player.min()) #retourne l'indice du point le plus proche du joueur
+	
+		
+
+func get_all_points_from_path(path : Path2D) -> Array: # méthode qui récupère tous les points du Path 2D
 	var points = []
 	
 	# vérifie si le Path2D a une courbe
