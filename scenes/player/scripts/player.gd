@@ -6,7 +6,7 @@ const SPEED : float = 300.0
 const JUMP_VELOCITY : float = -550.0
 
 #autres variables
-@onready var game_over_menu := %game_over_menu
+@onready var game_over_menu : CanvasLayer = %game_over_menu
 var gravity : int = 980
 var jump_count : int = 0
 var wall_jump_sensitivity : int = 10 #velocité minimal en y pour pouvoir effectuer le prochain wall jump
