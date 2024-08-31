@@ -9,7 +9,7 @@
 
 [sub_resource type="Curve2D" id="Curve2D_5dean"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 715, 173, 0, 0, 0, 0, 2669, 152, 0, 0, 0, 0, 4338, 55, 0, 0, 0, 0, 5772, -488, 0, 0, 0, 0, 7736, -979, 0, 0, 0, 0, 9865, -1719, 0, 0, 0, 0, 11624, -2550, 0, 0, 0, 0, 13716, -3735, 0, 0, 0, 0, 16215, -5616, 0, 0, 0, 0, 18834, -8635, 0, 0, 0, 0, 20829, -10830, 0, 0, 0, 0, 22036, -13291)
+"points": PackedVector2Array(0, 0, 0, 0, 408, 186, 0, 0, 0, 0, 2669, 152, 0, 0, 0, 0, 4338, 55, 0, 0, 0, 0, 5772, -488, 0, 0, 0, 0, 7736, -979, 0, 0, 0, 0, 9865, -1719, 0, 0, 0, 0, 11624, -2550, 0, 0, 0, 0, 13716, -3735, 0, 0, 0, 0, 16215, -5616, 0, 0, 0, 0, 18834, -8635, 0, 0, 0, 0, 20829, -10830, 0, 0, 0, 0, 22036, -13291)
 }
 point_count = 12
 
@@ -81,12 +81,13 @@ text = "retry"
 
 [node name="path_2d" type="Path2D" parent="."]
 unique_name_in_owner = true
+position = Vector2(-4, -126)
 curve = SubResource("Curve2D_5dean")
 
 [node name="path_follow_2d" type="PathFollow2D" parent="path_2d"]
 unique_name_in_owner = true
-position = Vector2(715, 173)
-rotation = -0.0107468
+position = Vector2(408, 186)
+rotation = -0.0150365
 
 [node name="projectile_launcher" type="Sprite2D" parent="path_2d/path_follow_2d"]
 unique_name_in_owner = true
