@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://d3pv7pb8xkfho"]
+[gd_scene load_steps=16 format=3 uid="uid://d3pv7pb8xkfho"]
 
 [ext_resource type="Script" path="res://scenes/projectiles/scripts/projectile.gd" id="1_8ye1t"]
 [ext_resource type="Texture2D" uid="uid://21qwpm55fcqs" path="res://scenes/projectiles/assets/projectile.png" id="1_fvof1"]
@@ -8,17 +8,38 @@
 friction = 0.0
 bounce = 0.51
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_55cdj"]
+radius = 13.8
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_805ij"]
+radius = 12.2
+
 [sub_resource type="Resource" id="Resource_2db6r"]
 script = ExtResource("2_xvwdh")
-sprite_scale = 0.0
+area_collision_shape = SubResource("CircleShape2D_55cdj")
+collision_shape = SubResource("CircleShape2D_805ij")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sjwtf"]
+radius = 69.01
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6fv34"]
+radius = 61.01
 
 [sub_resource type="Resource" id="Resource_ko8hp"]
 script = ExtResource("2_xvwdh")
-sprite_scale = 0.0
+area_collision_shape = SubResource("CircleShape2D_sjwtf")
+collision_shape = SubResource("CircleShape2D_6fv34")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2hu4v"]
+radius = 138.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5aun5"]
+radius = 122.02
 
 [sub_resource type="Resource" id="Resource_7332x"]
 script = ExtResource("2_xvwdh")
-sprite_scale = 0.0
+area_collision_shape = SubResource("CircleShape2D_2hu4v")
+collision_shape = SubResource("CircleShape2D_5aun5")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gl7oi"]
 radius = 69.0072
