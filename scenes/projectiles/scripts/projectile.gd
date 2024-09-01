@@ -27,7 +27,7 @@ func _ready() -> void:
 
 #------------------- mise à jour des propriétés du projectile -------------------
 func projectile_update_size() -> void:
-	#sprite_2d.scale = projectile_size_array[size].sprite_scale
+	sprite_2d.scale = projectile_size_array[size].sprite_scale
 	collision_shape_2d.shape = projectile_size_array[size].collision_shape
 	area_collision_shape_2d.shape = projectile_size_array[size].area_collision_shape
 
