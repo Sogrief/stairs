@@ -12,7 +12,6 @@ var closest_point : Vector2 # point du path le plus proche du joueur
 var timer : float = (randf() * 2.6) + 0.4 # le délai entre chaque projectile compris entre 0.4 et 3.0
 
 func _ready():
-	
 	path_points = get_all_points_from_path() # récupération de tous les points du path2D
 	closest_point = get_closest_path_point(path_points, player_position) # récupération du point le plus proche du joueur
 	path_follow_progress() # mise à jour de la progression du path follow par rapport à la position du joueur dans le niveau
@@ -67,7 +66,6 @@ func get_all_points_from_path() -> Array:
 			
 	return points
 	
-
 #------------------- fonction qui met à jour la progression du path follow 2D -------------------
 func path_follow_progress():
 	var player_distance = path.curve.get_closest_offset(closest_point) # distance approximative parcourue par le joueur

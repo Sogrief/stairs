@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://21qwpm55fcqs" path="res://scenes/projectiles/assets/projectile.png" id="1_fvof1"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vssvg"]
-friction = 0.51
-bounce = 0.2
+friction = 0.0
+bounce = 0.51
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gl7oi"]
 radius = 69.0072
