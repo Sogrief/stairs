@@ -27,7 +27,7 @@ position = Vector2(502, -85)
 unique_name_in_owner = true
 position = Vector2(502, -85)
 script = ExtResource("3_gllfd")
-projectile = ExtResource("3_6vax7")
+projectile_scene = ExtResource("3_6vax7")
 
 [node name="border" type="CanvasLayer" parent="."]
 

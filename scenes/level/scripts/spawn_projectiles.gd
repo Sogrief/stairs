@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var projectile : PackedScene
+@export var projectile_scene : PackedScene
 @onready var projectile_launcher : Sprite2D = %projectile_launcher # canon / spawner de projectiles
 @onready var path : Path2D = %path_2d # parcours 2D de la map
 @onready var path_follow : PathFollow2D = %path_follow_2d
@@ -9,13 +9,13 @@ extends Node2D
 
 var path_points : Array # l'ensemble des points du path2D
 var closest_point : Vector2 # point du path le plus proche du joueur
-var timer : float = (randf() * 2.6) + 0.4 # le délai entre chaque projectile compris entre 0.4 et 3.0
+var timer : float = (randf() * 2.6) + 0.4 # le délai entre chaque projectile_scene compris entre 0.4 et 3.0
 
 func _ready():
 	path_points = get_all_points_from_path() # récupération de tous les points du path2D
 	closest_point = get_closest_path_point(path_points, player_position) # récupération du point le plus proche du joueur
 	path_follow_progress() # mise à jour de la progression du path follow par rapport à la position du joueur dans le niveau
-	self.global_position = projectile_launcher.global_position # initialisation de la position du spawn de projectile avec celle du canon
+	self.global_position = projectile_launcher.global_position # initialisation de la position du spawn de projectile_scene avec celle du canon
 
 func _process(delta):
 	#------------------- position du spawner de projectiles -------------------
@@ -32,10 +32,11 @@ func _process(delta):
 	if timer < 0.0:
 		timer = (randf() * 2.6) + 0.4
 		
-		# ajout d'un nouveau projectile
-		var projectile_instance = projectile.instantiate() # création d'une instance du projectile
-		get_tree().current_scene.add_child(projectile_instance) # ajout du projectile à la scène
-		projectile_instance.global_position = self.global_position # spécifie la position du projectile égale à celle du spawner
+		# ajout d'un nouveau projectile_scene
+		var projectile_instance = projectile_scene.instantiate() # création d'une instance du projectile_scene
+		get_tree().current_scene.add_child(projectile_instance) # ajout du projectile_scene à la scène
+		projectile_instance.global_position = self.global_position # spécifie la position du projectile_scene égale à celle du spawner
+		
 		
 		var impulse = Vector2(-1000, 0)
 		projectile_instance.apply_impulse(impulse) # ajout d'une impulsion vers la gauche
