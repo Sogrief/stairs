@@ -27,6 +27,11 @@ func _process(delta):
 		closest_point = get_closest_path_point(path_points, player_position) # mise à jour du point le plus proche
 
 	#------------------- spawn des projectiles -------------------
+	var launcher_radiant_rotation = projectile_launcher.global_rotation # rotation en gradiant du lanceur
+	var launcher_direction = Vector2(cos(launcher_radiant_rotation), sin(launcher_radiant_rotation)) # direction normalisée du lanceur
+	
+	var impulse_force = 1000
+	
 	timer -= delta
 	
 	if timer < 0.0:
@@ -38,8 +43,7 @@ func _process(delta):
 		projectile_instance.global_position = self.global_position # spécifie la position du projectile_scene égale à celle du spawner
 		projectile_instance.size = randi_range(0, projectile.SIZE.size() - 1) # randomisation de la taille des projectiles a leur apparition
 		
-		var impulse = Vector2(-1000, 0)
-		projectile_instance.apply_impulse(impulse) # ajout d'une impulsion vers la gauche
+		projectile_instance.apply_impulse(launcher_direction * -impulse_force) # ajout d'une impulsion au projectile
 		
 		
 #------------------- fonction qui récupère les coordonnées des points du Path 2D -------------------
