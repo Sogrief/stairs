@@ -40,16 +40,7 @@ func _process(delta):
 		var impulse = Vector2(-1000, 0)
 		projectile_instance.apply_impulse(impulse) # ajout d'une impulsion vers la gauche
 		
-#------------------- fonction qui retourne les coordonnées du point le plus proche -------------------
-func get_closest_path_point(points : Array, player_pos : Vector2) -> Vector2:
-	var distances_from_player : Array = []
-	
-	for i in range(points.size()):
-		var distance = points[i].distance_to(player_pos) # distance entre le joueur et chaque point du path
-		distances_from_player.append(distance) # ajout de chaque distance dans un tableau
 		
-	return points[distances_from_player.find(distances_from_player.min())] # retourne les coordonnées du point le plus proche du joueur
-	
 #------------------- fonction qui récupère les coordonnées des points du Path 2D -------------------
 func get_all_points_from_path() -> Array: 
 	var points = []
@@ -65,6 +56,16 @@ func get_all_points_from_path() -> Array:
 			points.append(point_position) # ajout de la position des points au tableau
 			
 	return points
+	
+#------------------- fonction qui retourne les coordonnées du point le plus proche -------------------
+func get_closest_path_point(points : Array, player_pos : Vector2) -> Vector2:
+	var distances_from_player : Array = []
+	
+	for i in range(points.size()):
+		var distance = points[i].distance_to(player_pos) # distance entre le joueur et chaque point du path
+		distances_from_player.append(distance) # ajout de chaque distance dans un tableau
+		
+	return points[distances_from_player.find(distances_from_player.min())] # retourne les coordonnées du point le plus proche du joueur
 	
 #------------------- fonction qui met à jour la progression du path follow 2D -------------------
 func path_follow_progress():
