@@ -1,12 +1,97 @@
-[gd_scene load_steps=3 format=3 uid="uid://dlh4j7baqcd0a"]
+[gd_scene load_steps=8 format=3 uid="uid://dlh4j7baqcd0a"]
 
+[ext_resource type="Script" path="res://scenes/level/scripts/game_manager.gd" id="1_jtdce"]
 [ext_resource type="PackedScene" uid="uid://pklwlhm18nvx" path="res://scenes/stairs/stair.tscn" id="1_x3s6r"]
 [ext_resource type="PackedScene" uid="uid://burikkdqjftcb" path="res://scenes/player/player.tscn" id="2_tvdgu"]
+[ext_resource type="PackedScene" uid="uid://d3pv7pb8xkfho" path="res://scenes/projectiles/projectile.tscn" id="3_6vax7"]
+[ext_resource type="Script" path="res://scenes/level/scripts/spawn_projectiles.gd" id="3_gllfd"]
+[ext_resource type="Texture2D" uid="uid://dyiyir2y3vruv" path="res://scenes/stairs/assets/tile_set_base.jpg" id="6_mlxdq"]
+
+[sub_resource type="Curve2D" id="Curve2D_5dean"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 2669, 152, 0, 0, 0, 0, 2949, 141, 0, 0, 0, 0, 3171, 131, 0, 0, 0, 0, 3445, 111, 0, 0, 0, 0, 3633, 106, 0, 0, 0, 0, 3805, 93, 0, 0, 0, 0, 3975, 81, 0, 0, 0, 0, 4133, 77, 0, 0, 0, 0, 4338, 55, 0, 0, 0, 0, 4521, -8, 0, 0, 0, 0, 4629, -47, 0, 0, 0, 0, 4699, -72, 0, 0, 0, 0, 4866, -137, 0, 0, 0, 0, 5142, -243, 0, 0, 0, 0, 5427, -362, 0, 0, 0, 0, 5772, -488, 0, 0, 0, 0, 6012, -556, 0, 0, 0, 0, 6357, -641, 0, 0, 0, 0, 6597, -703, 0, 0, 0, 0, 6897, -775, 0, 0, 0, 0, 7223, -838, 0, 0, 0, 0, 7457, -901, 0, 0, 0, 0, 7736, -979, 0, 0, 0, 0, 7955, -1051, 0, 0, 0, 0, 8285, -1155, 0, 0, 0, 0, 8649, -1271, 0, 0, 0, 0, 9053, -1415, 0, 0, 0, 0, 9349, -1523, 0, 0, 0, 0, 9865, -1719, 0, 0, 0, 0, 10057, -1795, 0, 0, 0, 0, 10317, -1939, 0, 0, 0, 0, 10821, -2171, 0, 0, 0, 0, 11325, -2383, 0, 0, 0, 0, 11624, -2550, 0, 0, 0, 0, 11870, -2731, 0, 0, 0, 0, 12361, -2994, 0, 0, 0, 0, 12764, -3229, 0, 0, 0, 0, 13074, -3384, 0, 0, 0, 0, 13383, -3539, 0, 0, 0, 0, 13716, -3735, 0, 0, 0, 0, 14077, -4033, 0, 0, 0, 0, 14753, -4470, 0, 0, 0, 0, 15095, -4784, 0, 0, 0, 0, 15485, -4993, 0, 0, 0, 0, 15818, -5250, 0, 0, 0, 0, 16215, -5616, 0, 0, 0, 0, 16712, -6249, 0, 0, 0, 0, 17188, -6839, 0, 0, 0, 0, 17740, -7391, 0, 0, 0, 0, 18092, -7809, 0, 0, 0, 0, 18425, -8095, 0, 0, 0, 0, 18834, -8635, 0, 0, 0, 0, 19248, -9081, 0, 0, 0, 0, 20003, -9884, 0, 0, 0, 0, 20459, -10363, 0, 0, 0, 0, 20829, -10830, 0, 0, 0, 0, 21214, -11574, 0, 0, 0, 0, 21573, -12113, 0, 0, 0, 0, 21717, -12641, 0, 0, 0, 0, 22036, -13291)
+}
+point_count = 60
 
 [node name="main" type="Node2D"]
+script = ExtResource("1_jtdce")
 
 [node name="player" parent="." instance=ExtResource("2_tvdgu")]
-position = Vector2(436, 203)
+unique_name_in_owner = true
+position = Vector2(498, 226)
 
-[node name="Stairs" parent="." instance=ExtResource("1_x3s6r")]
+[node name="stairs" parent="." instance=ExtResource("1_x3s6r")]
 position = Vector2(502, -85)
+
+[node name="projectiles" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(502, -85)
+script = ExtResource("3_gllfd")
+projectile_scene = ExtResource("3_6vax7")
+
+[node name="border" type="CanvasLayer" parent="."]
+
+[node name="margin-container" type="MarginContainer" parent="border"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = -20
+theme_override_constants/margin_top = -20
+theme_override_constants/margin_right = -20
+theme_override_constants/margin_bottom = -20
+
+[node name="spawn_projectile_border" type="ReferenceRect" parent="border/margin-container"]
+layout_mode = 2
+
+[node name="game_over_menu" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="menu" type="Control" parent="game_over_menu"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="center_container" type="CenterContainer" parent="game_over_menu/menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="vbox_container" type="VBoxContainer" parent="game_over_menu/menu/center_container"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="label" type="Label" parent="game_over_menu/menu/center_container/vbox_container"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "game over"
+
+[node name="button" type="Button" parent="game_over_menu/menu/center_container/vbox_container"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "retry"
+
+[node name="path_2d" type="Path2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -126)
+curve = SubResource("Curve2D_5dean")
+
+[node name="path_follow_2d" type="PathFollow2D" parent="path_2d"]
+unique_name_in_owner = true
+position = Vector2(2669, 152)
+rotation = -0.0392655
+
+[node name="projectile_launcher" type="Sprite2D" parent="path_2d/path_follow_2d"]
+unique_name_in_owner = true
+texture = ExtResource("6_mlxdq")
+
+[connection signal="child_entered_tree" from="." to="player" method="_on_main_child_entered_tree"]
+[connection signal="pressed" from="game_over_menu/menu/center_container/vbox_container/button" to="." method="_on_button_pressed"]
