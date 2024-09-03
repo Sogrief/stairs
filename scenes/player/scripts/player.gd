@@ -1,18 +1,30 @@
 class_name player
 extends CharacterBody2D
 
+@onready var game_over_menu : CanvasLayer = %game_over_menu
+
 # constantes
 const SPEED : float = 300.0
 const JUMP_VELOCITY : float = -550.0
 
 # autres variables
-@onready var game_over_menu : CanvasLayer = %game_over_menu
 var gravity : int = 980
 var jump_count : int = 0
 var wall_jump_sensitivity : int = 10 # velocité minimal en y pour pouvoir effectuer le prochain wall jump
+var double_tap_interval : float = 0.3 # délai en secondes entre deux pressions de touches pour détecter un dash
+var tap_count : int = 0 # nombre de pressions de touches successives
 
 func _physics_process(delta):
 	
+	#------------------- dash du personnage -------------------
+	double_tap_interval -= delta
+	
+	if double_tap_interval < 0.0:
+		double_tap_interval = 0.3
+		print(delta)
+		
+	
+	#------------------- mouvements du personnage -------------------
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
