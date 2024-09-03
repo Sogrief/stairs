@@ -6,6 +6,7 @@ extends CharacterBody2D
 
 # constantes
 const SPEED : float = 300.0
+const DASH_FORCE : float = 2000.0
 const JUMP_VELOCITY : float = -550.0
 
 # autres variables
@@ -75,7 +76,7 @@ func _physics_process(delta):
 
 #------------------- fonction de dash -------------------
 func dash(dash_direction):
-	print(dash_direction)
+	velocity.x += DASH_FORCE * dash_direction
 
 #------------------- fonction de mort -------------------
 func death():
