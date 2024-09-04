@@ -6,7 +6,7 @@ extends CharacterBody2D
 
 # constantes
 const SPEED : float = 300.0
-const DASH_FORCE : float = 500.0
+const DASH_FORCE : float = 1000.0
 const JUMP_VELOCITY : float = -550.0
 
 # autres variables
@@ -35,7 +35,7 @@ func _physics_process(delta):
 	if direction:
 		velocity.x = direction * SPEED
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, SPEED / 4) # SPEED / 4 pour atténuer la décélération
 
 	#------------------- dash du personnage -------------------
 	if Input.is_action_just_pressed("move_left"):
@@ -45,7 +45,6 @@ func _physics_process(delta):
 			if tap_count_left == 2: # deuxième fois que le joueur appuie & délai dash pas en cours
 				delay_between_dash.start()
 				dash_time = dash_duration
-				dash_direction = direction
 				tap_count_left = 0
 				can_dash = false
 				
@@ -59,7 +58,6 @@ func _physics_process(delta):
 			if tap_count_right == 2: # deuxième fois que le joueur appuie & délai dash pas en cours
 				delay_between_dash.start()
 				dash_time = dash_duration
-				dash_direction = direction
 				tap_count_right = 0
 				can_dash = false
 				
@@ -74,19 +72,16 @@ func _physics_process(delta):
 			tap_count_right = 0
 			tap_count_left = 0
 			
-	dash(dash_direction)
+	dash(direction)
 	
 	move_and_slide()
-	
 
 #------------------- fonction de dash -------------------
 func dash(dash_direction):
-
 	if dash_time > 0:
 		var dash_progress : float = dash_time / dash_duration
-		dash_time -= get_process_delta_time()
-		#velocity.x += DASH_FORCE * dash_direction
 		velocity.x += lerp(0.0, DASH_FORCE * dash_direction, dash_progress)
+		dash_time -= get_process_delta_time()
 		
 #------------------- fonction de mort -------------------
 func death():
