@@ -6,17 +6,19 @@ extends CharacterBody2D
 
 # constantes
 const SPEED : float = 300.0
-const DASH_FORCE : float = 2000.0
+const DASH_FORCE : float = 400.0
 const JUMP_VELOCITY : float = -550.0
 
 # autres variables
 var gravity : int = 980
 var jump_count : int = 0
 var wall_jump_sensitivity : int = 10 # velocité minimale en y pour pouvoir effectuer le prochain wall jump
-var double_tap_interval : float = 0.5 # délai en secondes entre deux pressions de touches pour détecter un dash
+@export var double_tap_interval : float = 0.5 # délai en secondes entre deux pressions de touches pour détecter un dash
+@export var dash_time : float = 0.8  #durée de dash
 var tap_count_right : int = 0 # nombre de fois que arrow_right a été pressé dans un cours labste de temps
 var tap_count_left : int = 0 # nombre de fois que arrow_left a été pressé dans un cours labste de temps
 var can_dash : bool = true
+var dash_direction : float
 
 func _physics_process(delta):
 	#------------------- mouvements du personnage -------------------
@@ -43,9 +45,10 @@ func _physics_process(delta):
 			
 			if tap_count_left == 2: # deuxième fois que le joueur appuie & délai dash pas en cours
 				delay_between_dash.start()
-				can_dash = false
-				dash(direction)
+				dash_time = 0.8
+				dash_direction = direction
 				tap_count_left = 0
+				can_dash = false
 				
 		else:
 			tap_count_left = 0
@@ -56,27 +59,29 @@ func _physics_process(delta):
 			
 			if tap_count_right == 2: # deuxième fois que le joueur appuie & délai dash pas en cours
 				delay_between_dash.start()
-				can_dash = false
-				dash(direction)
+				dash_time = 0.8
+				dash_direction = direction
 				tap_count_right = 0
+				can_dash = false
 				
 		else:
 			tap_count_right = 0
 	
-	if tap_count_left or tap_count_right == 1:
+	if 1 in [tap_count_left, tap_count_right]:
 		double_tap_interval -= delta
 		
-		if double_tap_interval < 0.0:
+		if double_tap_interval < 0.0: # intervale entre deux touches insuffisant => double tap non détecté
 			double_tap_interval = 0.5
 			tap_count_right = 0
 			tap_count_left = 0
 			
-	
-	#print(str(can_dash) + " | tap count left : " + str(tap_count_left) + " | tap count right : " + str(tap_count_right))
+	dash(dash_direction)
 
 #------------------- fonction de dash -------------------
 func dash(dash_direction):
-	velocity.x += DASH_FORCE * dash_direction
+	if dash_time > 0:
+		dash_time -= get_process_delta_time()
+		velocity.x += DASH_FORCE * dash_direction
 
 #------------------- fonction de mort -------------------
 func death():
