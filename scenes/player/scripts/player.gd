@@ -38,6 +38,14 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, 0, SPEED / 4) # SPEED / 4 pour atténuer la décélération
 
 	#------------------- dash du personnage -------------------
+	double_tap()
+	dash(direction)
+	
+	move_and_slide()
+	
+
+#------------------- fonction de double tap -------------------
+func double_tap():
 	if Input.is_action_just_pressed("move_left"):
 		if can_dash == true:
 			tap_count_left += 1
@@ -65,17 +73,13 @@ func _physics_process(delta):
 			tap_count_right = 0
 	
 	if 1 in [tap_count_left, tap_count_right]:
-		double_tap_interval -= delta
+		double_tap_interval -= get_process_delta_time()
 		
 		if double_tap_interval < 0.0: # intervale entre deux touches insuffisant => double tap non détecté
 			double_tap_interval = 0.5
 			tap_count_right = 0
 			tap_count_left = 0
-			
-	dash(direction)
-	
-	move_and_slide()
-
+		
 #------------------- fonction de dash -------------------
 func dash(dash_direction):
 	if dash_time > 0:
