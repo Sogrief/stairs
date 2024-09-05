@@ -27,7 +27,7 @@ func _process(delta):
 		closest_point = get_closest_path_point(path_points, player_position) # mise à jour du point le plus proche
 
 	#------------------- spawn des projectiles -------------------
-	var random_variation = randf_range(-0.5, 0.5) # variation en radiant de la rotation
+	var random_variation = randf_range(-0.5, 0.5) # variation aléatoire en radiant de la rotation
 	var launcher_radiant_rotation = projectile_launcher.global_rotation + random_variation # rotation en gradiant du lanceur
 	var launcher_direction = Vector2(cos(launcher_radiant_rotation), sin(launcher_radiant_rotation)) # direction normalisée du lanceur
 	
