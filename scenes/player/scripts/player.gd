@@ -46,7 +46,6 @@ func _physics_process(delta):
 	dash(direction)
 	
 	move_and_slide()
-	print(jump_count)
 
 #------------------- fonction de double tap -------------------
 func double_tap():
