@@ -4,8 +4,8 @@ extends Node2D
 @onready var projectile_launcher : Sprite2D = %projectile_launcher # canon / spawner de projectiles
 @onready var path : Path2D = %path_2d # parcours 2D de la map
 @onready var path_follow : PathFollow2D = %path_follow_2d
-@onready var player : CharacterBody2D = %player # joueur
-@onready var player_position : Vector2 = player.global_position # la position en temps réel du joueur
+@onready var player_reference : CharacterBody2D = %player # joueur
+@onready var player_position : Vector2 = player_reference.global_position # la position en temps réel du joueur
 
 var path_points : Array # l'ensemble des points du path2D
 var closest_point : Vector2 # point du path le plus proche du joueur
@@ -19,7 +19,7 @@ func _ready():
 
 func _process(delta):
 	#------------------- position du spawner de projectiles -------------------
-	player_position = player.global_position # récupération de la position du joueur
+	player_position = player_reference.global_position # récupération de la position du joueur
 	path_follow_progress() # mise à jour de la progression du path follow par rapport à la position du joueur dans le niveau
 	
 	if closest_point != get_closest_path_point(path_points, player_position): # si le point le plus proche a changé
