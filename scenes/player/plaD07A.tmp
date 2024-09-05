@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://burikkdqjftcb"]
+
+[ext_resource type="Texture2D" uid="uid://drgc6w5t5ung4" path="res://icon.svg" id="1_7552v"]
+[ext_resource type="Script" path="res://scenes/player/scripts/player.gd" id="1_ow7tb"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5cewi"]
+radius = 7.0
+height = 122.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ctxvo"]
+radius = 57.0088
+
+[node name="player" type="CharacterBody2D" groups=["player"]]
+script = ExtResource("1_ow7tb")
+
+[node name="sprite_2d" type="Sprite2D" parent="."]
+texture = ExtResource("1_7552v")
+
+[node name="area_2d" type="Area2D" parent="."]
+
+[node name="area_collision_shape_2d" type="CollisionShape2D" parent="area_2d"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_5cewi")
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ctxvo")
+
+[node name="camera_2d" type="Camera2D" parent="."]
+
+[node name="delay_between_dash" type="Timer" parent="."]
+
+[connection signal="body_entered" from="area_2d" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="area_2d" to="." method="_on_area_2d_body_exited"]
+[connection signal="timeout" from="delay_between_dash" to="." method="_on_delay_between_dash_timeout"]

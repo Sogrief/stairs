@@ -4,16 +4,18 @@ extends CharacterBody2D
 @onready var game_over_menu : CanvasLayer = %game_over_menu
 @onready var delay_between_dash = $delay_between_dash
 
-# constantes
+#------------------- constantes -------------------
 const SPEED : float = 300.0
 const DASH_FORCE : float = 1000.0
-const JUMP_VELOCITY : float = -550.0
+const JUMP_VELOCITY : float = -620.0
 
-# autres variables
+#------------------- variables -------------------
 var gravity : int = 980
 var jump_count : int = 0
 var wall_jump_sensitivity : int = 10 # velocité minimale en y pour pouvoir effectuer le prochain wall jump
-@export var double_tap_interval : float = 0.5 # délai en secondes entre deux pressions de touches pour détecter un dash
+
+# fonctionnalité de dash
+@export var double_tap_interval : float = 0.3 # délai en secondes entre deux pressions de touches pour détecter un dash
 @export var dash_duration : float = 0.8 # durée des dashs
 var dash_time : float # temps restant du dash en cours
 var tap_count_right : int = 0 # nombre de fois que arrow_right a été pressé dans un cours labste de temps
@@ -22,11 +24,13 @@ var can_dash : bool = true
 var dash_direction : float
 
 func _physics_process(delta):
+	#SceneTreeTimer
+	
 	#------------------- mouvements du personnage -------------------
-	if not is_on_floor():
+	if !is_on_floor():
 		velocity.y += gravity * delta
 
-	if Input.is_action_pressed("jump") and (is_on_floor() || jump_count > 0):
+	if Input.is_action_pressed("jump") and (is_on_floor() || jump_count > 0): # si le joueur saute et est au sol ou touche un mur
 		jump_count = 0
 		velocity.y = JUMP_VELOCITY
 
@@ -42,7 +46,7 @@ func _physics_process(delta):
 	dash(direction)
 	
 	move_and_slide()
-	
+	print(jump_count)
 
 #------------------- fonction de double tap -------------------
 func double_tap():
