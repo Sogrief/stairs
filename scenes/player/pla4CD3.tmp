@@ -12,6 +12,8 @@ radius = 57.0088
 
 [node name="player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_ow7tb")
+double_tap_interval = null
+dash_time = null
 
 [node name="sprite_2d" type="Sprite2D" parent="."]
 texture = ExtResource("1_7552v")
@@ -26,6 +28,7 @@ shape = SubResource("CapsuleShape2D_5cewi")
 shape = SubResource("CircleShape2D_ctxvo")
 
 [node name="camera_2d" type="Camera2D" parent="."]
+zoom = Vector2(0.05, 0.05)
 
 [node name="delay_between_dash" type="Timer" parent="."]
 
