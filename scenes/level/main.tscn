@@ -18,7 +18,7 @@ script = ExtResource("1_jtdce")
 
 [node name="player" parent="." instance=ExtResource("2_tvdgu")]
 unique_name_in_owner = true
-position = Vector2(20473, -35453)
+position = Vector2(20389, -22740)
 
 [node name="stairs" parent="." instance=ExtResource("1_x3s6r")]
 position = Vector2(502, -85)

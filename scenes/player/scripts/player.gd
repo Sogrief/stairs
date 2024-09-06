@@ -5,7 +5,7 @@ extends CharacterBody2D
 @onready var delay_between_dash = $delay_between_dash
 
 #------------------- constantes -------------------
-const SPEED : float = 300.0
+const SPEED : float = 3000.0
 const DASH_FORCE : float = 1000.0
 const JUMP_VELOCITY : float = -620.0
 
@@ -25,10 +25,16 @@ var dash_direction : float
 
 func _physics_process(delta):
 	#SceneTreeTimer
+	#------------------- vol du personnage(debug) -------------------
+	if Input.is_action_pressed("jump"):
+		position.y -= 100
+		
+	if Input.is_action_pressed("move_down"):
+		position.y += 100
 	
 	#------------------- mouvements du personnage -------------------
-	if !is_on_floor():
-		velocity.y += gravity * delta
+	#if !is_on_floor():
+		#velocity.y += gravity * delta
 
 	if Input.is_action_pressed("jump") and (is_on_floor() || jump_count > 0): # si le joueur saute et est au sol ou touche un mur
 		jump_count = 0

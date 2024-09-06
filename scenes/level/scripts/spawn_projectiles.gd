@@ -46,7 +46,7 @@ func _process(delta):
 		
 		projectile_instance.apply_impulse(launcher_direction * -impulse_force) # ajout d'une impulsion au projectile
 		
-		
+	
 #------------------- fonction qui récupère les coordonnées des points du Path 2D -------------------
 func get_all_points_from_path() -> Array: 
 	var points = []
@@ -77,4 +77,4 @@ func get_closest_path_point(points : Array, player_pos : Vector2) -> Vector2:
 func path_follow_progress():
 	var player_distance = path.curve.get_closest_offset(closest_point) # distance approximative parcourue par le joueur
 	var progress_ratio = player_distance / path.curve.get_baked_length() # progress ratio approximatif du joueur
-	path_follow.progress_ratio = progress_ratio + 0.22 # mise à jour de la position du lanceur
+	path_follow.progress_ratio = progress_ratio + 0.12 # mise à jour de la position du lanceur

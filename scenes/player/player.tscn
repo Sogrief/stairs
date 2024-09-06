@@ -30,7 +30,7 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_5etb8")
 
 [node name="camera_2d" type="Camera2D" parent="."]
-zoom = Vector2(0.9, 0.9)
+zoom = Vector2(0.02, 0.02)
 
 [node name="delay_between_dash" type="Timer" parent="."]
 
