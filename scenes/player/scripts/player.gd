@@ -109,10 +109,5 @@ func _on_area_2d_body_exited(body):
 	if body is TileMap:
 		pass
 
-#fonction à mettre dans game manager plutôt ?
-func _on_main_child_entered_tree(node):
-	if node is projectile: # vérifie si un projectile est ajouté à la scène
-		node.player_collision.connect(death)
-
 func _on_delay_between_dash_timeout():
 	can_dash = true
