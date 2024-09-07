@@ -25,6 +25,12 @@ var dash_direction : float
 
 func _physics_process(delta):
 	#SceneTreeTimer
+	#------------------- vol du personnage(debug) -------------------
+	#if Input.is_action_pressed("jump"):
+		#position.y -= 100
+		#
+	#if Input.is_action_pressed("move_down"):
+		#position.y += 100
 	
 	#------------------- mouvements du personnage -------------------
 	if !is_on_floor():
@@ -46,7 +52,6 @@ func _physics_process(delta):
 	dash(direction)
 	
 	move_and_slide()
-	print(jump_count)
 
 #------------------- fonction de double tap -------------------
 func double_tap():
