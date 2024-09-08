@@ -21,7 +21,8 @@ var dash_time : float # temps restant du dash en cours
 var tap_count_right : int = 0 # nombre de fois que arrow_right a été pressé dans un cours labste de temps
 var tap_count_left : int = 0 # nombre de fois que arrow_left a été pressé dans un cours labste de temps
 var can_dash : bool = true
-var dash_direction : float
+var absolute_direction : float # dernière direction à droite ou à gauche, soit une varialbe égale à 1 ou -1
+var prev_absolute_dir : float # précédente valeur de la variable absolute_direction
 
 func _physics_process(delta):
 	#SceneTreeTimer
@@ -44,12 +45,13 @@ func _physics_process(delta):
 	
 	if direction:
 		velocity.x = direction * SPEED
+		absolute_direction = direction
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED / 4) # SPEED / 4 pour atténuer la décélération
 
 	#------------------- dash du personnage -------------------
 	double_tap()
-	dash(direction)
+	dash(direction, absolute_direction)
 	
 	move_and_slide()
 
@@ -90,11 +92,23 @@ func double_tap():
 			tap_count_left = 0
 		
 #------------------- fonction de dash -------------------
-func dash(dash_direction):
-	if dash_time > 0:
+func dash(dash_direction, absolute_dir):
+	var direction_change : bool
+	
+	# détection du changement de direction du joueur
+	if prev_absolute_dir != absolute_dir: 
+		direction_change = true
+	else:
+		direction_change = false
+	
+	prev_absolute_dir = absolute_dir
+	
+	if dash_time > 0 && direction_change != true:
 		var dash_progress : float = dash_time / dash_duration
 		velocity.x += lerp(0.0, DASH_FORCE * dash_direction, dash_progress)
 		dash_time -= get_process_delta_time()
+	else: # si la direction du joueur a changé durant le dash
+		dash_time = 0 # arrêt du dash en cours
 		
 #------------------- fonction de mort -------------------
 func death():
@@ -108,11 +122,6 @@ func _on_area_2d_body_entered(body):
 func _on_area_2d_body_exited(body):
 	if body is TileMap:
 		pass
-
-#fonction à mettre dans game manager plutôt ?
-func _on_main_child_entered_tree(node):
-	if node is projectile: # vérifie si un projectile est ajouté à la scène
-		node.player_collision.connect(death)
 
 func _on_delay_between_dash_timeout():
 	can_dash = true
