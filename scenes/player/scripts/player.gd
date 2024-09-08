@@ -65,6 +65,7 @@ func double_tap():
 				delay_between_dash.start()
 				dash_time = dash_duration
 				tap_count_left = 0
+				jump_count += 1
 				can_dash = false
 				
 		else:
@@ -78,6 +79,7 @@ func double_tap():
 				delay_between_dash.start()
 				dash_time = dash_duration
 				tap_count_right = 0
+				jump_count += 1
 				can_dash = false
 				
 		else:
