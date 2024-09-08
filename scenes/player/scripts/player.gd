@@ -22,6 +22,8 @@ var tap_count_right : int = 0 # nombre de fois que arrow_right a été pressé d
 var tap_count_left : int = 0 # nombre de fois que arrow_left a été pressé dans un cours labste de temps
 var can_dash : bool = true
 var dash_direction : float
+var _double_tap_dir : float
+var absolute_direction : float # dernière direction à droite ou à gauche, soit une varialbe égale à 1 ou -1
 
 func _physics_process(delta):
 	#SceneTreeTimer
@@ -42,14 +44,16 @@ func _physics_process(delta):
 
 	var direction = Input.get_axis("move_left", "move_right")
 	
+	
 	if direction:
 		velocity.x = direction * SPEED
+		absolute_direction = direction
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED / 4) # SPEED / 4 pour atténuer la décélération
 
 	#------------------- dash du personnage -------------------
 	double_tap()
-	dash(direction)
+	dash(direction, absolute_direction)
 	
 	move_and_slide()
 
@@ -90,11 +94,25 @@ func double_tap():
 			tap_count_left = 0
 		
 #------------------- fonction de dash -------------------
-func dash(dash_direction):
+func dash(dash_direction, absolute_dir):
+	var direction_change : bool = false
+	
+	if _double_tap_dir != absolute_dir:
+		direction_change = false
+	else:
+		direction_change = true
+	
+	print(direction_change)
+	
+	_double_tap_dir = absolute_dir
+	
 	if dash_time > 0:
 		var dash_progress : float = dash_time / dash_duration
 		velocity.x += lerp(0.0, DASH_FORCE * dash_direction, dash_progress)
 		dash_time -= get_process_delta_time()
+		
+	
+	#print(str(dash_direction) + " " + str(_double_tap_dir))
 		
 #------------------- fonction de mort -------------------
 func death():
