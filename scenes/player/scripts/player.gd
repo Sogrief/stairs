@@ -21,9 +21,8 @@ var dash_time : float # temps restant du dash en cours
 var tap_count_right : int = 0 # nombre de fois que arrow_right a été pressé dans un cours labste de temps
 var tap_count_left : int = 0 # nombre de fois que arrow_left a été pressé dans un cours labste de temps
 var can_dash : bool = true
-var dash_direction : float
-var _double_tap_dir : float
 var absolute_direction : float # dernière direction à droite ou à gauche, soit une varialbe égale à 1 ou -1
+var prev_absolute_dir : float # précédente valeur de la variable absolute_direction
 
 func _physics_process(delta):
 	#SceneTreeTimer
@@ -43,7 +42,6 @@ func _physics_process(delta):
 		velocity.y = JUMP_VELOCITY
 
 	var direction = Input.get_axis("move_left", "move_right")
-	
 	
 	if direction:
 		velocity.x = direction * SPEED
@@ -95,24 +93,22 @@ func double_tap():
 		
 #------------------- fonction de dash -------------------
 func dash(dash_direction, absolute_dir):
-	var direction_change : bool = false
+	var direction_change : bool
 	
-	if _double_tap_dir != absolute_dir:
-		direction_change = false
-	else:
+	# détection du changement de direction du joueur
+	if prev_absolute_dir != absolute_dir: 
 		direction_change = true
+	else:
+		direction_change = false
 	
-	print(direction_change)
+	prev_absolute_dir = absolute_dir
 	
-	_double_tap_dir = absolute_dir
-	
-	if dash_time > 0:
+	if dash_time > 0 && direction_change != true:
 		var dash_progress : float = dash_time / dash_duration
 		velocity.x += lerp(0.0, DASH_FORCE * dash_direction, dash_progress)
 		dash_time -= get_process_delta_time()
-		
-	
-	#print(str(dash_direction) + " " + str(_double_tap_dir))
+	else: # si la direction du joueur a changé durant le dash
+		dash_time = 0 # arrêt du dash en cours
 		
 #------------------- fonction de mort -------------------
 func death():
