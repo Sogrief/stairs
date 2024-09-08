@@ -23,6 +23,7 @@ var tap_count_left : int = 0 # nombre de fois que arrow_left a été pressé dan
 var can_dash : bool = true
 var absolute_direction : float # dernière direction à droite ou à gauche, soit une varialbe égale à 1 ou -1
 var prev_absolute_dir : float # précédente valeur de la variable absolute_direction
+var dash_count : int = 0 # nombre de dash sans toucher le sol
 
 func _physics_process(delta):
 	#SceneTreeTimer
@@ -36,6 +37,8 @@ func _physics_process(delta):
 	#------------------- mouvements du personnage -------------------
 	if !is_on_floor():
 		velocity.y += gravity * delta
+	else:
+		dash_count = 0
 
 	if Input.is_action_pressed("jump") and (is_on_floor() || jump_count > 0): # si le joueur saute et est au sol ou touche un mur
 		jump_count = 0
@@ -61,12 +64,16 @@ func double_tap():
 		if can_dash == true:
 			tap_count_left += 1
 			
-			if tap_count_left == 2: # deuxième fois que le joueur appuie & délai dash pas en cours
+			if tap_count_left == 2: # deuxième fois que le joueur appuie & délai dash pas en cours	
 				delay_between_dash.start()
 				dash_time = dash_duration
 				tap_count_left = 0
-				jump_count += 1
 				can_dash = false
+				
+				if dash_count == 0:
+					if !is_on_floor():
+						dash_count += 1
+						jump_count += 1
 				
 		else:
 			tap_count_left = 0
@@ -79,8 +86,13 @@ func double_tap():
 				delay_between_dash.start()
 				dash_time = dash_duration
 				tap_count_right = 0
-				jump_count += 1
 				can_dash = false
+				
+				if dash_count == 0:
+					if !is_on_floor():
+						dash_count += 1
+						jump_count += 1
+				
 				
 		else:
 			tap_count_right = 0
@@ -120,6 +132,7 @@ func _on_area_2d_body_entered(body):
 	if body is TileMap:
 		if velocity.y > wall_jump_sensitivity:
 			jump_count = 1
+			dash_count = 0
 
 func _on_area_2d_body_exited(body):
 	if body is TileMap:
@@ -127,3 +140,4 @@ func _on_area_2d_body_exited(body):
 
 func _on_delay_between_dash_timeout():
 	can_dash = true
+	
