@@ -1,0 +1,145 @@
+* [33m31538dc[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mplayer[m[33m, [m[1;31morigin/player[m[33m)[m augmentation de la force des sauts
+* [33m6356d89[m réorganisation du code, propreté
+* [33me9a13ae[m résolution de la force du dash enfoncé
+* [33m8ce958e[m dash progressif
+* [33md1cf622[m ajout du déplacement rapide lors du dash
+* [33mb136691[m refactorisation de code, enrichissement de la fonction dash
+* [33m7fe0958[m ajout d'un délai entre chaque dash
+* [33m9fc6af1[m propreté du code, ajout de commentaires et d'un bool can_dash
+* [33m9444b38[m détection des double tap à gauche & à droite
+* [33mce99c6a[m ajout d'un timer pour mesurer le temps entre deux mêmes touches
+* [33me81d2fd[m fonctionnalité de jump en continu lors de la touche enfoncée
+*   [33m36d41f6[m Merge branch 'master' into player
+[32m|[m[33m\[m  
+[32m|[m *   [33m58d7a88[m[33m ([m[1;31morigin/master[m[33m)[m Merge branch 'master' of https://github.com/Sogrief/stairs
+[32m|[m [34m|[m[35m\[m  
+[32m|[m [34m|[m *   [33mb3db1db[m Merge pull request #7 from Sogrief/projectile
+[32m|[m [34m|[m [36m|[m[1;31m\[m  
+[32m|[m [34m|[m * [1;31m\[m   [33m6b05c89[m Merge pull request #5 from Sogrief/game-over-menu
+[32m|[m [34m|[m [1;32m|[m[1;33m\[m [1;31m\[m  
+[32m|[m [34m|[m * [1;33m\[m [1;31m\[m   [33m626b04e[m Merge pull request #4 from Sogrief/tilemap
+[32m|[m [34m|[m [1;34m|[m[1;35m\[m [1;33m\[m [1;31m\[m  
+[32m|[m * [1;34m|[m [1;35m\[m [1;33m\[m [1;31m\[m   [33m7811f15[m Merge branch 'projectile'
+[32m|[m [1;36m|[m[31m\[m [1;34m\[m [1;35m\[m [1;33m\[m [1;31m\[m  
+[32m|[m [1;36m|[m * [1;34m|[m [1;35m|[m [1;33m|[m [1;31m|[m [33mc5fd145[m[33m ([m[1;31morigin/projectile[m[33m, [m[1;32mprojectile[m[33m)[m lancement des projectiles en direction du joueur
+[32m|[m [1;36m|[m [1;31m|[m [1;34m|[m[1;31m_[m[1;35m|[m[1;31m_[m[1;33m|[m[1;31m/[m  
+[32m|[m [1;36m|[m [1;31m|[m[1;31m/[m[1;34m|[m [1;35m|[m [1;33m|[m   
+[32m|[m [1;36m|[m * [1;34m|[m [1;35m|[m [1;33m|[m   [33mdac75f7[m Merge branch 'feature/projectile-size' into projectile
+[32m|[m [1;36m|[m [32m|[m[33m\[m [1;34m\[m [1;35m\[m [1;33m\[m  
+[32m|[m [1;36m|[m [32m|[m * [1;34m|[m [1;35m|[m [1;33m|[m [33m7a6367e[m[33m ([m[1;31morigin/feature/projectile-size[m[33m, [m[1;32mfeature/projectile-size[m[33m)[m première randomisation de la taille des projectile à leur instanciation
+[32m|[m [1;36m|[m [32m|[m * [1;34m|[m [1;35m|[m [1;33m|[m [33m7922efd[m propreté : ajout de commentaires dans projectile.gd, et renommage de la packed scene projectile en projectile_scene
+[32m|[m [1;36m|[m [32m|[m * [1;34m|[m [1;35m|[m [1;33m|[m [33m795f78d[m changement de la taille du sprite du projectile en fonction de sa taille dans l'enum
+[32m|[m [1;36m|[m [32m|[m * [1;34m|[m [1;35m|[m [1;33m|[m [33mbac5c33[m changement de la taille des colliders du projectile en fonction de sa taille dans l'enum
+[32m|[m [1;36m|[m [32m|[m * [1;34m|[m [1;35m|[m [1;33m|[m [33m0ff5474[m ajout d'une ressource projectile_size pour gérer les pressets de projectiles
+[32m|[m [1;36m|[m [32m|[m[32m/[m [1;34m/[m [1;35m/[m [1;33m/[m  
+[32m|[m [1;36m|[m * [1;34m|[m [1;35m|[m [1;33m|[m [33m4eb1077[m amélioration de la physique des projectiles
+[32m|[m [1;36m|[m * [1;34m|[m [1;35m|[m [1;33m|[m [33m09a13f1[m ajout de points sur le path 2D
+[32m|[m [1;36m|[m * [1;34m|[m [1;35m|[m [1;33m|[m [33mc03f2bb[m amélioration de la zone d'apparition des projectiles au tout début
+[32m|[m [1;36m|[m * [1;34m|[m [1;35m|[m [1;33m|[m [33m29e7d76[m ajout d'une première impulsion de base aux projectiles
+[32m|[m [1;36m|[m * [1;34m|[m [1;35m|[m [1;33m|[m [33m5648e34[m propreté du code, ajout de commentaires, amélioration de la fonction _get_closest_path_point, première randomisation du timer
+[32m|[m [1;36m|[m * [1;34m|[m [1;35m|[m [1;33m|[m [33m739529c[m propreté du code
+[32m|[m [1;36m|[m * [1;34m|[m [1;35m|[m [1;33m|[m [33meba8f27[m amélioration de la lisibilité du typage du canvas layer du menu game over
+[32m|[m [1;36m|[m * [1;34m|[m [1;35m|[m [1;33m|[m [33md7d14f9[m rectification de l'instanciation des projectiles lorsque le spawn bouge
+[32m|[m [1;36m|[m * [1;34m|[m [1;35m|[m [1;33m|[m [33mac4a4d1[m déplacement dynamique du lanceur de projectiles
+[32m|[m [1;36m|[m * [1;34m|[m [1;35m|[m [1;33m|[m [33m6735ee3[m récupération du progress ratio du joueur
+[32m|[m [1;36m|[m * [1;34m|[m [1;35m|[m [1;33m|[m [33m34a234b[m récupération du point du path2D le plus proche du joueur
+[32m|[m [1;36m|[m * [1;34m|[m [1;35m|[m [1;33m|[m [33mf7cdcd3[m récupération de tous les points du path2D
+[32m|[m [1;36m|[m * [1;34m|[m [1;35m|[m [1;33m|[m [33m2ccd780[m ajout d'une rérérence au path 2D dans le script de spawn des projectiles
+[32m|[m [1;36m|[m * [1;34m|[m [1;35m|[m [1;33m|[m [33mdee6235[m ajout d'un path 2d pour l'éjecteur de projectile
+[32m|[m [1;36m|[m * [1;34m|[m [1;35m|[m [1;33m|[m   [33m23c6e34[m Merge branch 'game-over-menu' into projectile
+[32m|[m [1;36m|[m [34m|[m[1;33m\[m [1;34m\[m [1;35m\[m [1;33m\[m  
+[32m|[m [1;36m|[m [34m|[m [1;33m|[m [1;34m|[m[1;33m_[m[1;35m|[m[1;33m/[m  
+[32m|[m [1;36m|[m [34m|[m [1;33m|[m[1;33m/[m[1;34m|[m [1;35m|[m   
+[32m|[m [1;36m|[m [34m|[m * [1;34m|[m [1;35m|[m [33m0aec0d5[m[33m ([m[1;31morigin/game-over-menu[m[33m, [m[1;32mgame-over-menu[m[33m)[m changement de dossier du script de spawn des projectiles
+[32m|[m [1;36m|[m [34m|[m * [1;34m|[m [1;35m|[m [33me6aa9e5[m bouton retry pour rejouer la scène
+[32m|[m [1;36m|[m [34m|[m * [1;34m|[m [1;35m|[m [33meafd84d[m création d'un premier menu de game over et affichage de celui-ci quand le joueur meurt
+[32m|[m [1;36m|[m [34m|[m[34m/[m [1;34m/[m [1;35m/[m  
+[32m|[m [1;36m|[m * [1;34m|[m [1;35m|[m [33maf1cec0[m détection de la mort du joueur lors de la collision avec les projectiles
+[32m|[m [1;36m|[m * [1;34m|[m [1;35m|[m [33m42bc108[m ajout d'un premier script de spawn des projectiles
+[32m|[m [1;36m|[m * [1;34m|[m [1;35m|[m [33m31584b9[m détection des collisions avec le joueur par le projectile
+[32m|[m [1;36m|[m * [1;34m|[m [1;35m|[m [33m1b0c15a[m ajustement de la taille du projectile et de quelques paramètres de physique
+[32m|[m [1;36m|[m * [1;34m|[m [1;35m|[m [33m638e221[m création d'un premier projectile avec de la physique
+[32m|[m [1;36m|[m * [1;34m|[m [1;35m|[m [33mdcf4313[m ajout d'une scène de projectile
+[32m|[m [1;36m|[m [1;35m|[m [1;34m|[m[1;35m/[m  
+[32m|[m [1;36m|[m [1;35m|[m[1;35m/[m[1;34m|[m   
+[32m|[m * [1;35m|[m [1;34m|[m [33me1fa3f8[m Merge branch 'tilemap'
+[32m|[m [1;34m|[m[1;35m\[m[1;35m|[m [1;34m|[m 
+[32m|[m [1;34m|[m [1;35m|[m[1;34m/[m  
+[32m|[m [1;34m|[m[1;34m/[m[1;35m|[m   
+[32m|[m [1;34m|[m * [33me4a9c33[m[33m ([m[1;31morigin/tilemap[m[33m, [m[1;32mtilemap[m[33m)[m suppression de l'ancien niveau trop long pour nettoyer la tilemap
+[32m|[m [1;34m|[m * [33m8792e78[m spécification d'un niveau réalisable en plus de 6 minutes
+[32m|[m [1;34m|[m *   [33m9d6f93d[m Merge branch 'master' into tilemap
+[32m|[m [1;34m|[m [1;32m|[m[1;34m\[m  
+[32m|[m [1;34m|[m [1;32m|[m[1;34m/[m  
+[32m|[m [1;34m|[m[1;34m/[m[1;32m|[m   
+[32m|[m * [1;32m|[m   [33mbc57529[m Merge branch 'master' of https://github.com/Sogrief/stairs
+[32m|[m [1;34m|[m[1;35m\[m [1;32m\[m  
+[32m|[m [1;34m|[m * [1;32m\[m   [33mff3302d[m Merge pull request #3 from Sogrief/player
+[32m|[m [1;34m|[m [1;36m|[m[32m\[m [1;32m\[m  
+[32m|[m [1;34m|[m[32m_[m[1;36m|[m[32m/[m [1;32m/[m  
+[32m|[m[32m/[m[1;34m|[m [1;36m|[m [1;32m|[m   
+[32m|[m * [1;36m|[m [1;32m|[m   [33m7222491[m Merge branch 'player'
+[32m|[m [1;36m|[m[32m\[m [1;36m\[m [1;32m\[m  
+[32m|[m [1;36m|[m[32m/[m [1;36m/[m [1;32m/[m  
+[32m|[m[32m/[m[1;36m|[m [1;36m/[m [1;32m/[m   
+[32m|[m [1;36m|[m[1;36m/[m [1;32m/[m    
+* [1;36m|[m [1;32m|[m   [33m0fa68d4[m Merge branch 'feature/player-wall-jump' into player
+[34m|[m[35m\[m [1;36m\[m [1;32m\[m  
+[34m|[m * [1;36m|[m [1;32m|[m [33m7d56a5c[m[33m ([m[1;31morigin/feature/player-wall-jump[m[33m, [m[1;32mfeature/player-wall-jump[m[33m)[m amélioration du code de wall jump
+[34m|[m * [1;36m|[m [1;32m|[m [33mc42c8e6[m spécification d'une velocité minimale en y pour faire le prochain wall jump
+[34m|[m * [1;36m|[m [1;32m|[m [33m0de81f4[m amélioration du système de wall jump
+[34m|[m * [1;36m|[m [1;32m|[m [33m216c393[m ajout de la base du système de wall jump
+[34m|[m * [1;36m|[m [1;32m|[m [33meb1f37f[m détection de la collision avec la tilemap
+[34m|[m * [1;36m|[m [1;32m|[m [33mcba934f[m ajout d'un area 2D au player
+[34m|[m * [1;36m|[m [1;32m|[m [33m6a16520[m suppression des scènes tilemap inutiles
+[34m|[m * [1;36m|[m [1;32m|[m   [33m0d75fd8[m Merge branch 'tilemap' into feature/player-movement
+[34m|[m [36m|[m[1;32m\[m [1;36m\[m [1;32m\[m  
+[34m|[m [36m|[m [1;32m|[m [1;36m|[m[1;32m/[m  
+[34m|[m [36m|[m [1;32m|[m[1;32m/[m[1;36m|[m   
+[34m|[m * [1;32m|[m [1;36m|[m [33m0bd00dd[m suppression des fichiers pouvant corrompre un merge
+[34m|[m * [1;32m|[m [1;36m|[m [33m1e6bf5a[m suppression de l'ancienne scène de tilemap sur la branche player
+[34m|[m * [1;32m|[m [1;36m|[m [33mfd2d8df[m ajout des contrôles directionnels dans le script du personnage
+[34m|[m * [1;32m|[m [1;36m|[m [33m6ce997f[m spécifications des contrôles dans la config godot
+[34m|[m * [1;32m|[m [1;36m|[m [33m4bea618[m propreté du code, suppression des commentaires par défaut, typage des variables
+* [1;31m|[m [1;32m|[m [1;36m|[m [33m2ce1b54[m commit avant le merge avec la feature de wall jump
+[1;31m|[m[1;31m/[m [1;32m/[m [1;36m/[m  
+[1;31m|[m [1;32m|[m *   [33mf960bdd[m Merge branch 'player'
+[1;31m|[m [1;32m|[m [1;32m|[m[1;31m\[m  
+[1;31m|[m [1;32m|[m[1;31m_[m[1;32m|[m[1;31m/[m  
+[1;31m|[m[1;31m/[m[1;32m|[m [1;32m|[m   
+* [1;32m|[m [1;32m|[m [33mf935c5a[m premier assemblage de de la scène principale
+* [1;32m|[m [1;32m|[m [33m90406de[m ajout d'une caméra au player
+[1;33m|[m [1;32m|[m * [33m0b67dc8[m suppression à nouveau de la scène e l'ancienne tilemap
+[1;33m|[m [1;32m|[m * [33m5ccdf88[m suppression d'une scène contenant un tilemap produisant des erreurs dans la console
+[1;33m|[m [1;32m|[m *   [33mc64a6e9[m Merge branch 'master' of https://github.com/Sogrief/stairs
+[1;33m|[m [1;32m|[m [1;34m|[m[1;35m\[m  
+[1;33m|[m [1;32m|[m [1;34m|[m *   [33mbeae6d9[m Merge pull request #2 from Sogrief/tilemap
+[1;33m|[m [1;32m|[m [1;34m|[m [1;36m|[m[1;32m\[m  
+[1;33m|[m [1;32m|[m [1;34m|[m[1;32m_[m[1;36m|[m[1;32m/[m  
+[1;33m|[m [1;32m|[m[1;32m/[m[1;34m|[m [1;36m|[m   
+[1;33m|[m [1;32m|[m [1;34m|[m *   [33m38c840e[m Merge pull request #1 from Sogrief/player
+[1;33m|[m [1;32m|[m [1;34m|[m [32m|[m[1;33m\[m  
+[1;33m|[m [1;32m|[m[1;33m_[m[1;34m|[m[1;33m_[m[32m|[m[1;33m/[m  
+[1;33m|[m[1;33m/[m[1;32m|[m [1;34m|[m [32m|[m   
+[1;33m|[m [1;32m|[m * [32m|[m   [33m2733375[m Merge branch 'tilemap'
+[1;33m|[m [1;32m|[m [34m|[m[1;32m\[m [32m\[m  
+[1;33m|[m [1;32m|[m [34m|[m[1;32m/[m [32m/[m  
+[1;33m|[m [1;32m|[m[1;32m/[m[34m|[m [32m|[m   
+[1;33m|[m * [34m|[m [32m|[m [33mfaacebd[m créations de nouveaux escaliers avec la tilemap corrigée
+[1;33m|[m * [34m|[m [32m|[m [33mc9c9330[m création d'un autre tile map pour résoudre les erreurs
+[1;33m|[m [35m|[m * [32m|[m   [33m04695ae[m Merge branch 'player'
+[1;33m|[m [35m|[m [32m|[m[1;33m\[m [32m\[m  
+[1;33m|[m [35m|[m[1;33m_[m[32m|[m[1;33m/[m [32m/[m  
+[1;33m|[m[1;33m/[m[35m|[m [32m|[m [32m/[m   
+[1;33m|[m [35m|[m [32m|[m[32m/[m    
+* [35m|[m [32m/[m [33m0c50238[m ajout d'un script de déplacement
+[32m|[m [35m|[m[32m/[m  
+[32m|[m[32m/[m[35m|[m   
+* [35m|[m [33m16dd698[m Merge branch 'tilemap'
+[1;32m|[m[35m\[m[35m|[m 
+[1;32m|[m * [33me3ada25[m création d'un petit niveau de test
+[1;32m|[m * [33m8302b6a[m ajout des collisions au tileset
+[1;32m|[m * [33m5577e23[m ajout d'une tilemap et d'un premier tileset de base
+[1;32m|[m[1;32m/[m  
+* [33m708e6ae[m ajout de la scène principale
+* [33m8034136[m initialisation du projet

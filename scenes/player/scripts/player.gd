@@ -21,14 +21,24 @@ var dash_time : float # temps restant du dash en cours
 var tap_count_right : int = 0 # nombre de fois que arrow_right a été pressé dans un cours labste de temps
 var tap_count_left : int = 0 # nombre de fois que arrow_left a été pressé dans un cours labste de temps
 var can_dash : bool = true
-var dash_direction : float
+var absolute_direction : float # dernière direction à droite ou à gauche, soit une varialbe égale à 1 ou -1
+var prev_absolute_dir : float # précédente valeur de la variable absolute_direction
+var dash_count_on_air : int = 0 # nombre de dash sans toucher le sol
 
 func _physics_process(delta):
 	#SceneTreeTimer
+	#------------------- vol du personnage(debug) -------------------
+	#if Input.is_action_pressed("jump"):
+		#position.y -= 100
+		#
+	#if Input.is_action_pressed("move_down"):
+		#position.y += 100
 	
 	#------------------- mouvements du personnage -------------------
 	if !is_on_floor():
 		velocity.y += gravity * delta
+	else:
+		dash_count_on_air = 0
 
 	if Input.is_action_pressed("jump") and (is_on_floor() || jump_count > 0): # si le joueur saute et est au sol ou touche un mur
 		jump_count = 0
@@ -38,12 +48,13 @@ func _physics_process(delta):
 	
 	if direction:
 		velocity.x = direction * SPEED
+		absolute_direction = direction
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED / 4) # SPEED / 4 pour atténuer la décélération
 
 	#------------------- dash du personnage -------------------
 	double_tap()
-	dash(direction)
+	dash(direction, absolute_direction)
 	
 	move_and_slide()
 
@@ -53,11 +64,16 @@ func double_tap():
 		if can_dash == true:
 			tap_count_left += 1
 			
-			if tap_count_left == 2: # deuxième fois que le joueur appuie & délai dash pas en cours
+			if tap_count_left == 2: # deuxième fois que le joueur appuie & délai dash pas en cours	
 				delay_between_dash.start()
 				dash_time = dash_duration
 				tap_count_left = 0
 				can_dash = false
+				
+				if dash_count_on_air == 0:
+					if !is_on_floor():
+						dash_count_on_air += 1
+						jump_count += 1
 				
 		else:
 			tap_count_left = 0
@@ -72,6 +88,12 @@ func double_tap():
 				tap_count_right = 0
 				can_dash = false
 				
+				if dash_count_on_air == 0:
+					if !is_on_floor():
+						dash_count_on_air += 1
+						jump_count += 1
+				
+				
 		else:
 			tap_count_right = 0
 	
@@ -84,11 +106,23 @@ func double_tap():
 			tap_count_left = 0
 		
 #------------------- fonction de dash -------------------
-func dash(dash_direction):
-	if dash_time > 0:
+func dash(dash_direction, absolute_dir):
+	var direction_change : bool
+	
+	# détection du changement de direction du joueur
+	if prev_absolute_dir != absolute_dir: 
+		direction_change = true
+	else:
+		direction_change = false
+	
+	prev_absolute_dir = absolute_dir
+	
+	if dash_time > 0 && direction_change != true:
 		var dash_progress : float = dash_time / dash_duration
 		velocity.x += lerp(0.0, DASH_FORCE * dash_direction, dash_progress)
 		dash_time -= get_process_delta_time()
+	else: # si la direction du joueur a changé durant le dash
+		dash_time = 0 # arrêt du dash en cours
 		
 #------------------- fonction de mort -------------------
 func death():
@@ -98,15 +132,12 @@ func _on_area_2d_body_entered(body):
 	if body is TileMap:
 		if velocity.y > wall_jump_sensitivity:
 			jump_count = 1
+			dash_count_on_air = 0
 
 func _on_area_2d_body_exited(body):
 	if body is TileMap:
 		pass
 
-#fonction à mettre dans game manager plutôt ?
-func _on_main_child_entered_tree(node):
-	if node is projectile: # vérifie si un projectile est ajouté à la scène
-		node.player_collision.connect(death)
-
 func _on_delay_between_dash_timeout():
 	can_dash = true
+	

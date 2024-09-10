@@ -4,8 +4,8 @@ extends Node2D
 @onready var projectile_launcher : Sprite2D = %projectile_launcher # canon / spawner de projectiles
 @onready var path : Path2D = %path_2d # parcours 2D de la map
 @onready var path_follow : PathFollow2D = %path_follow_2d
-@onready var player : CharacterBody2D = %player # joueur
-@onready var player_position : Vector2 = player.global_position # la position en temps réel du joueur
+@onready var player_reference : CharacterBody2D = %player # joueur
+@onready var player_position : Vector2 = player_reference.global_position # la position en temps réel du joueur
 
 var path_points : Array # l'ensemble des points du path2D
 var closest_point : Vector2 # point du path le plus proche du joueur
@@ -19,7 +19,7 @@ func _ready():
 
 func _process(delta):
 	#------------------- position du spawner de projectiles -------------------
-	player_position = player.global_position # récupération de la position du joueur
+	player_position = player_reference.global_position # récupération de la position du joueur
 	path_follow_progress() # mise à jour de la progression du path follow par rapport à la position du joueur dans le niveau
 	
 	if closest_point != get_closest_path_point(path_points, player_position): # si le point le plus proche a changé
@@ -27,7 +27,8 @@ func _process(delta):
 		closest_point = get_closest_path_point(path_points, player_position) # mise à jour du point le plus proche
 
 	#------------------- spawn des projectiles -------------------
-	var launcher_radiant_rotation = projectile_launcher.global_rotation # rotation en gradiant du lanceur
+	var random_variation = randf_range(-0.5, 0.5) # variation aléatoire en radiant de la rotation
+	var launcher_radiant_rotation = projectile_launcher.global_rotation + random_variation # rotation en gradiant du lanceur
 	var launcher_direction = Vector2(cos(launcher_radiant_rotation), sin(launcher_radiant_rotation)) # direction normalisée du lanceur
 	
 	var impulse_force = 1000
@@ -45,7 +46,7 @@ func _process(delta):
 		
 		projectile_instance.apply_impulse(launcher_direction * -impulse_force) # ajout d'une impulsion au projectile
 		
-		
+	
 #------------------- fonction qui récupère les coordonnées des points du Path 2D -------------------
 func get_all_points_from_path() -> Array: 
 	var points = []
@@ -76,4 +77,4 @@ func get_closest_path_point(points : Array, player_pos : Vector2) -> Vector2:
 func path_follow_progress():
 	var player_distance = path.curve.get_closest_offset(closest_point) # distance approximative parcourue par le joueur
 	var progress_ratio = player_distance / path.curve.get_baked_length() # progress ratio approximatif du joueur
-	path_follow.progress_ratio = progress_ratio + 0.22 # mise à jour de la position du lanceur
+	path_follow.progress_ratio = progress_ratio + 0.12 # mise à jour de la position du lanceur
