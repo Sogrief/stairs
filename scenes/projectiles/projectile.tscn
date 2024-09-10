@@ -47,6 +47,7 @@ collision_shape = SubResource("CircleShape2D_5aun5")
 [node name="projectile" type="RigidBody2D"]
 mass = 0.5
 physics_material_override = SubResource("PhysicsMaterial_vssvg")
+gravity_scale = 0.6
 script = ExtResource("1_8ye1t")
 projectile_size_array = Array[ExtResource("2_xvwdh")]([SubResource("Resource_2db6r"), SubResource("Resource_ko8hp"), SubResource("Resource_7332x")])
 size = 1

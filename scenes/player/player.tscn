@@ -4,16 +4,19 @@
 [ext_resource type="Script" path="res://scenes/player/scripts/player.gd" id="1_ow7tb"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5cewi"]
-radius = 7.0
+radius = 24.0
 height = 122.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ctxvo"]
-radius = 57.0088
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5etb8"]
+radius = 37.0
+height = 108.0
 
 [node name="player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_ow7tb")
 
 [node name="sprite_2d" type="Sprite2D" parent="."]
+position = Vector2(0, 2.38419e-07)
+scale = Vector2(1, 0.640625)
 texture = ExtResource("1_7552v")
 
 [node name="area_2d" type="Area2D" parent="."]
@@ -23,7 +26,8 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_5cewi")
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_ctxvo")
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_5etb8")
 
 [node name="camera_2d" type="Camera2D" parent="."]
 
