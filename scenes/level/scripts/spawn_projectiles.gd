@@ -19,6 +19,10 @@ func _ready():
 	self.global_position = projectile_launcher.global_position # initialisation de la position du spawn de projectile_scene avec celle du canon
 
 func _process(delta):
+	
+	if path_follow_progress() >= 0.5:
+		print("-------test------------")
+	
 	#------------------- position du spawner de projectiles -------------------
 	player_position = player_reference.global_position # récupération de la position du joueur
 	path_follow.progress_ratio = path_follow_progress() + progress_add  # mise à jour de la progression du path follow par rapport à la position du joueur dans le niveau
