@@ -12,6 +12,8 @@ var path_points : Array # l'ensemble des points du path2D
 var closest_point : Vector2 # point du path le plus proche du joueur
 var timer : float = (randf() * 2.6) + 0.4 # le délai entre chaque projectile_scene compris entre 0.4 et 3.0
 
+signal half_level_reached
+
 func _ready():
 	path_points = get_all_points_from_path() # récupération de tous les points du path2D
 	closest_point = get_closest_path_point(path_points, player_position) # récupération du point le plus proche du joueur
@@ -20,8 +22,10 @@ func _ready():
 
 func _process(delta):
 	
-	if path_follow_progress() >= 0.5:
-		print("-------test------------")
+	print(path_follow_progress())
+	
+	if path_follow_progress() >= 0.5: # si le joueur dépasse la moitié du niveau
+		half_level_reached.emit()
 	
 	#------------------- position du spawner de projectiles -------------------
 	player_position = player_reference.global_position # récupération de la position du joueur
@@ -51,7 +55,7 @@ func _process(delta):
 		
 		projectile_instance.apply_impulse(launcher_direction * -impulse_force) # ajout d'une impulsion au projectile
 		
-	
+		half_level_reached.connect(projectile_instance.gravity_right)
 #------------------- fonction qui récupère les coordonnées des points du Path 2D -------------------
 func get_all_points_from_path() -> Array: 
 	var points = []

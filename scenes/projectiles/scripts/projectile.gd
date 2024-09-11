@@ -25,7 +25,7 @@ enum SIZE {
 
 func _ready() -> void:
 	size_changed.connect(projectile_update_size) # à la naissance du projectile, le signal de taille est connecté
-
+	
 #------------------- mise à jour des propriétés du projectile lors de la réception du signal -------------------
 func projectile_update_size() -> void:
 	sprite_2d.scale = projectile_size_array[size].sprite_scale # taille du sprite 2D
@@ -36,3 +36,9 @@ func projectile_update_size() -> void:
 func _on_area_2d_body_entered(body):
 	if body is player:
 		player_collision.emit()
+		
+		
+func gravity_right():
+	apply_central_force(Vector2(980 * 0.6, 0))
+	
+
