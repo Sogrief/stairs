@@ -7,6 +7,7 @@ extends Node2D
 @onready var player_reference : CharacterBody2D = %player # joueur
 @onready var player_position : Vector2 = player_reference.global_position # la position en temps réel du joueur
 
+var progress_add : float = 0.12 # progression ajoutée en plus de celle du joueur au spawner de projectiles
 var path_points : Array # l'ensemble des points du path2D
 var closest_point : Vector2 # point du path le plus proche du joueur
 var timer : float = (randf() * 2.6) + 0.4 # le délai entre chaque projectile_scene compris entre 0.4 et 3.0
@@ -14,13 +15,13 @@ var timer : float = (randf() * 2.6) + 0.4 # le délai entre chaque projectile_sc
 func _ready():
 	path_points = get_all_points_from_path() # récupération de tous les points du path2D
 	closest_point = get_closest_path_point(path_points, player_position) # récupération du point le plus proche du joueur
-	path_follow_progress() # mise à jour de la progression du path follow par rapport à la position du joueur dans le niveau
+	path_follow.progress_ratio = path_follow_progress() + progress_add  # mise à jour de la progression du path follow par rapport à la position du joueur dans le niveau
 	self.global_position = projectile_launcher.global_position # initialisation de la position du spawn de projectile_scene avec celle du canon
 
 func _process(delta):
 	#------------------- position du spawner de projectiles -------------------
 	player_position = player_reference.global_position # récupération de la position du joueur
-	path_follow_progress() # mise à jour de la progression du path follow par rapport à la position du joueur dans le niveau
+	path_follow.progress_ratio = path_follow_progress() + progress_add  # mise à jour de la progression du path follow par rapport à la position du joueur dans le niveau
 	
 	if closest_point != get_closest_path_point(path_points, player_position): # si le point le plus proche a changé
 		self.global_position = projectile_launcher.global_position # mise à jour de la position du spawn des projectiles
@@ -73,8 +74,8 @@ func get_closest_path_point(points : Array, player_pos : Vector2) -> Vector2:
 		
 	return points[distances_from_player.find(distances_from_player.min())] # retourne les coordonnées du point le plus proche du joueur
 	
-#------------------- fonction qui met à jour la progression du path follow 2D -------------------
-func path_follow_progress():
+#------------------- fonction qui retourne la progression du joueur -------------------
+func path_follow_progress() -> float:
 	var player_distance = path.curve.get_closest_offset(closest_point) # distance approximative parcourue par le joueur
 	var progress_ratio = player_distance / path.curve.get_baked_length() # progress ratio approximatif du joueur
-	path_follow.progress_ratio = progress_ratio + 0.12 # mise à jour de la position du lanceur
+	return progress_ratio # retourne la progression
