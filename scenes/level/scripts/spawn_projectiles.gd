@@ -52,7 +52,9 @@ func _process(delta):
 		
 		projectile_instance.apply_impulse(launcher_direction * -impulse_force) # ajout d'une impulsion au projectile
 		
-		half_level_reached.connect(projectile_instance.test.bind("test"))
+		var custom_gravity = Vector2(ProjectSettings.get_setting("physics/2d/default_gravity") , 0)
+		
+		half_level_reached.connect(projectile_instance.set_gravity.bind(custom_gravity))
 #------------------- fonction qui récupère les coordonnées des points du Path 2D -------------------
 func get_all_points_from_path() -> Array: 
 	var points = []

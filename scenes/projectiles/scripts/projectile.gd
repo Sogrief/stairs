@@ -1,6 +1,8 @@
 class_name projectile
 extends RigidBody2D
 
+var custom_gravity : Vector2
+
 #------------------- propriétés du projectile à changer lorsque sa taille change -------------------
 @onready var sprite_2d = $sprite_2d
 @onready var collision_shape_2d = $collision_shape_2d
@@ -38,12 +40,13 @@ func _on_area_2d_body_entered(body):
 	if body is player:
 		player_collision.emit()
 		
-func test(string : String):
-	print(string)
+		
+#------------------- met à jour la gravité quand moitié du niveau dépassée -------------------	
+func set_gravity(dir: Vector2) -> void:
+	custom_gravity = dir * gravity_scale
 	
 func _integrate_forces(state) -> void:
-	 # On calcule la gravité manuelle
-	var custom_gravity = Vector2(0, 980 * gravity_scale)  # La gravité est simulée vers le bas
-
-	# On modifie directement la vélocité linéaire de l'objet
-	state.linear_velocity += custom_gravity * state.step  # Appliquer la gravité manuellement
+	print(custom_gravity)
+	
+	var custom_grav = Vector2(0, 980 * gravity_scale)  # calcul manuel de la gravité
+	state.linear_velocity += custom_grav * state.step  # modification de la vélocité linéaire de l'objet
