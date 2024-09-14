@@ -7,7 +7,7 @@ extends Node2D
 @onready var player_reference : CharacterBody2D = %player # joueur
 @onready var player_position : Vector2 = player_reference.global_position # la position en temps réel du joueur
 
-var progress_add : float = 0.12 # progression ajoutée en plus de celle du joueur au spawner de projectiles
+var progress_add : float = 0.03 # progression ajoutée en plus de celle du joueur au spawner de projectiles
 var path_points : Array # l'ensemble des points du path2D
 var closest_point : Vector2 # point du path le plus proche du joueur
 var timer : float = (randf() * 2.6) + 0.4 # le délai entre chaque projectile_scene compris entre 0.4 et 3.0
@@ -21,7 +21,7 @@ func _ready():
 	self.global_position = projectile_launcher.global_position # initialisation de la position du spawn de projectile_scene avec celle du canon
 
 func _process(delta):
-	if path_follow_progress() >= 0.01: # si le joueur dépasse la moitié du niveau
+	if path_follow_progress() >= 0.5: # si le joueur dépasse la moitié du niveau
 		half_level_reached.emit()
 	
 	#------------------- position du spawner de projectiles -------------------

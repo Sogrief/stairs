@@ -29,7 +29,7 @@ func _ready() -> void:
 	size_changed.connect(projectile_update_size) # à la naissance du projectile, le signal de taille est connecté
 	custom_integrator = true  # Activer le custom integrator pour cet objet
 	
-	custom_gravity = Vector2(0, 980 * gravity_scale)
+	custom_gravity = Vector2(0, ProjectSettings.get_setting("physics/2d/default_gravity") * gravity_scale)
 	
 #------------------- mise à jour des propriétés du projectile lors de la réception du signal -------------------
 func projectile_update_size() -> void:
@@ -47,9 +47,6 @@ func _on_area_2d_body_entered(body):
 func set_gravity(dir: Vector2) -> void:
 	custom_gravity = dir * gravity_scale
 	
-	print(custom_gravity)
-	
 #------------------- met à jour la gravité quand moitié du niveau dépassée -------------------	
 func _integrate_forces(state) -> void:
-	
 	state.linear_velocity += custom_gravity * state.step  # modification de la vélocité linéaire de l'objet
