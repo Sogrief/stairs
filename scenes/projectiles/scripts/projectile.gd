@@ -1,6 +1,9 @@
 class_name projectile
 extends RigidBody2D
 
+@onready var player_ref : CharacterBody2D = get_tree().current_scene.get_node("%player")
+var custom_gravity : Vector2
+
 #------------------- propriétés du projectile à changer lorsque sa taille change -------------------
 @onready var sprite_2d = $sprite_2d
 @onready var collision_shape_2d = $collision_shape_2d
@@ -25,6 +28,16 @@ enum SIZE {
 
 func _ready() -> void:
 	size_changed.connect(projectile_update_size) # à la naissance du projectile, le signal de taille est connecté
+	custom_integrator = true  # Activer le custom integrator pour cet objet
+	
+	custom_gravity = Vector2(0, ProjectSettings.get_setting("physics/2d/default_gravity") * gravity_scale)
+
+func _process(delta):
+	#------------------- suppression du projectile si très loin du personnage -------------------
+	var distance_from_player : int = global_position.distance_to(player_ref.global_position) # distance du projectile avec le joueur
+	
+	if distance_from_player > 15000: # si la distance est loin en dehors de l'écran du joueur
+		queue_free() # le projectile est supprimmé
 	
 #------------------- mise à jour des propriétés du projectile lors de la réception du signal -------------------
 func projectile_update_size() -> void:
@@ -38,7 +51,10 @@ func _on_area_2d_body_entered(body):
 		player_collision.emit()
 		
 		
-func gravity_right():
-	apply_central_force(Vector2(980 * 0.6, 0))
+#------------------- modifie la varialbe de gravité -------------------	
+func set_gravity(dir: Vector2) -> void:
+	custom_gravity = dir * gravity_scale
 	
-
+#------------------- met à jour la gravité quand moitié du niveau dépassée -------------------	
+func _integrate_forces(state) -> void:
+	state.linear_velocity += custom_gravity * state.step  # modification de la vélocité linéaire de l'objet

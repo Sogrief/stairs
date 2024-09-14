@@ -93,7 +93,6 @@ func double_tap():
 						dash_count_on_air += 1
 						jump_count += 1
 				
-				
 		else:
 			tap_count_right = 0
 	
