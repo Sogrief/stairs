@@ -38,9 +38,10 @@ func _on_area_2d_body_entered(body):
 	if body is player:
 		player_collision.emit()
 		
+func test(string : String):
+	print(string)
 	
 func _integrate_forces(state) -> void:
-	#apply_impulse(Vector2(0, 9.8))
 	 # On calcule la gravité manuelle
 	var custom_gravity = Vector2(0, 980 * gravity_scale)  # La gravité est simulée vers le bas
 

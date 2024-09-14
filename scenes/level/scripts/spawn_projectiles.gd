@@ -21,10 +21,7 @@ func _ready():
 	self.global_position = projectile_launcher.global_position # initialisation de la position du spawn de projectile_scene avec celle du canon
 
 func _process(delta):
-	
-	print(path_follow_progress())
-	
-	if path_follow_progress() >= 0.5: # si le joueur dépasse la moitié du niveau
+	if path_follow_progress() >= 0.01: # si le joueur dépasse la moitié du niveau
 		half_level_reached.emit()
 	
 	#------------------- position du spawner de projectiles -------------------
@@ -55,7 +52,7 @@ func _process(delta):
 		
 		projectile_instance.apply_impulse(launcher_direction * -impulse_force) # ajout d'une impulsion au projectile
 		
-		#half_level_reached.connect(projectile_instance.gravity_right)
+		half_level_reached.connect(projectile_instance.test.bind("test"))
 #------------------- fonction qui récupère les coordonnées des points du Path 2D -------------------
 func get_all_points_from_path() -> Array: 
 	var points = []
