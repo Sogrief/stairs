@@ -1,6 +1,7 @@
 class_name projectile
 extends RigidBody2D
 
+@onready var player_ref : CharacterBody2D = get_tree().current_scene.get_node("%player")
 var custom_gravity : Vector2
 
 #------------------- propriétés du projectile à changer lorsque sa taille change -------------------
@@ -30,6 +31,13 @@ func _ready() -> void:
 	custom_integrator = true  # Activer le custom integrator pour cet objet
 	
 	custom_gravity = Vector2(0, ProjectSettings.get_setting("physics/2d/default_gravity") * gravity_scale)
+
+func _process(delta):
+	#------------------- suppression du projectile si très loin du personnage -------------------
+	var distance_from_player : int = global_position.distance_to(player_ref.global_position) # distance du projectile avec le joueur
+	
+	if distance_from_player > 15000: # si la distance est loin en dehors de l'écran du joueur
+		queue_free() # le projectile est supprimmé
 	
 #------------------- mise à jour des propriétés du projectile lors de la réception du signal -------------------
 func projectile_update_size() -> void:
