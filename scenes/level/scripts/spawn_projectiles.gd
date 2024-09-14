@@ -55,7 +55,7 @@ func _process(delta):
 		
 		projectile_instance.apply_impulse(launcher_direction * -impulse_force) # ajout d'une impulsion au projectile
 		
-		half_level_reached.connect(projectile_instance.gravity_right)
+		#half_level_reached.connect(projectile_instance.gravity_right)
 #------------------- fonction qui récupère les coordonnées des points du Path 2D -------------------
 func get_all_points_from_path() -> Array: 
 	var points = []

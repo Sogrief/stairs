@@ -25,6 +25,7 @@ enum SIZE {
 
 func _ready() -> void:
 	size_changed.connect(projectile_update_size) # à la naissance du projectile, le signal de taille est connecté
+	custom_integrator = true  # Activer le custom integrator pour cet objet
 	
 #------------------- mise à jour des propriétés du projectile lors de la réception du signal -------------------
 func projectile_update_size() -> void:
@@ -37,8 +38,11 @@ func _on_area_2d_body_entered(body):
 	if body is player:
 		player_collision.emit()
 		
-		
-func gravity_right():
-	apply_central_force(Vector2(980 * 0.6, 0))
 	
+func _integrate_forces(state) -> void:
+	#apply_impulse(Vector2(0, 9.8))
+	 # On calcule la gravité manuelle
+	var custom_gravity = Vector2(0, 980 * gravity_scale)  # La gravité est simulée vers le bas
 
+	# On modifie directement la vélocité linéaire de l'objet
+	state.linear_velocity += custom_gravity * state.step  # Appliquer la gravité manuellement
