@@ -29,6 +29,8 @@ func _ready() -> void:
 	size_changed.connect(projectile_update_size) # à la naissance du projectile, le signal de taille est connecté
 	custom_integrator = true  # Activer le custom integrator pour cet objet
 	
+	custom_gravity = Vector2(0, 980 * gravity_scale)
+	
 #------------------- mise à jour des propriétés du projectile lors de la réception du signal -------------------
 func projectile_update_size() -> void:
 	sprite_2d.scale = projectile_size_array[size].sprite_scale # taille du sprite 2D
@@ -41,12 +43,13 @@ func _on_area_2d_body_entered(body):
 		player_collision.emit()
 		
 		
-#------------------- met à jour la gravité quand moitié du niveau dépassée -------------------	
+#------------------- modifie la varialbe de gravité -------------------	
 func set_gravity(dir: Vector2) -> void:
 	custom_gravity = dir * gravity_scale
 	
-func _integrate_forces(state) -> void:
 	print(custom_gravity)
 	
-	var custom_grav = Vector2(0, 980 * gravity_scale)  # calcul manuel de la gravité
-	state.linear_velocity += custom_grav * state.step  # modification de la vélocité linéaire de l'objet
+#------------------- met à jour la gravité quand moitié du niveau dépassée -------------------	
+func _integrate_forces(state) -> void:
+	
+	state.linear_velocity += custom_gravity * state.step  # modification de la vélocité linéaire de l'objet
