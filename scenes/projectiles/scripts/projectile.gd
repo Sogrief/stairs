@@ -61,4 +61,5 @@ func _integrate_forces(state) -> void:
 	var current_speed = state.linear_velocity.length()
 	
 	if current_speed > max_speed:
-		state.linear_velocity = state.linear_velocity.normalized() * max_speed
+		state.linear_velocity = state.linear_velocity.normalized() * (max_speed - size * 100) # plus l'objet est gros plus il est lent
+	
