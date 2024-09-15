@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://d3pv7pb8xkfho"]
+[gd_scene load_steps=22 format=3 uid="uid://d3pv7pb8xkfho"]
 
 [ext_resource type="Script" path="res://scenes/projectiles/scripts/projectile.gd" id="1_8ye1t"]
 [ext_resource type="Texture2D" uid="uid://21qwpm55fcqs" path="res://scenes/projectiles/assets/projectile.png" id="1_fvof1"]
 [ext_resource type="Script" path="res://ressources/projectiles_size/projectile_size.gd" id="2_xvwdh"]
+[ext_resource type="PackedScene" uid="uid://klrigd1gv5bd" path="res://scenes/kill_zone/kill_zone.tscn" id="4_wbu2o"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vssvg"]
 friction = 0.0
@@ -68,6 +69,9 @@ sprite_scale = Vector2(1, 1)
 area_collision_shape = SubResource("CircleShape2D_1ffok")
 collision_shape = SubResource("CircleShape2D_sv0fd")
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_n0gab"]
+radius = 41.4
+
 [node name="projectile" type="RigidBody2D"]
 mass = 0.5
 physics_material_override = SubResource("PhysicsMaterial_vssvg")
@@ -81,12 +85,10 @@ rotation = 3.14159
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("1_fvof1")
 
-[node name="area_2d" type="Area2D" parent="."]
+[node name="kill_zone" parent="." instance=ExtResource("4_wbu2o")]
 
-[node name="collision_shape_2d" type="CollisionShape2D" parent="area_2d"]
-shape = SubResource("CircleShape2D_sjwtf")
+[node name="collision_shape_2d" type="CollisionShape2D" parent="kill_zone"]
+shape = SubResource("CircleShape2D_n0gab")
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_6fv34")
-
-[connection signal="body_entered" from="area_2d" to="." method="_on_area_2d_body_entered"]
