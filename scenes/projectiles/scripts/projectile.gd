@@ -3,6 +3,7 @@ extends RigidBody2D
 
 @onready var player_ref : CharacterBody2D = get_tree().current_scene.get_node("%player")
 var custom_gravity : Vector2
+var max_speed : float = 800.0
 
 #------------------- propriétés du projectile à changer lorsque sa taille change -------------------
 @onready var sprite_2d = $sprite_2d
@@ -15,9 +16,6 @@ var custom_gravity : Vector2
 		if value != size: # si la taille du projectile change le signal est envoyé
 			size = value
 			size_changed.emit()
-		
-signal player_collision #signal envoyé lors de la collision de ce projectile avec le joueur
-signal size_changed # signal envoyé lorsque la size du projectile est mise à jour
 
 #------------------- les différentes tailles de projectiles -------------------
 enum SIZE {
@@ -25,6 +23,9 @@ enum SIZE {
 	MEDIUM = 1,
 	BIG = 2
 }
+
+signal player_collision #signal envoyé lors de la collision de ce projectile avec le joueur
+signal size_changed # signal envoyé lorsque la size du projectile est mise à jour
 
 func _ready() -> void:
 	size_changed.connect(projectile_update_size) # à la naissance du projectile, le signal de taille est connecté
@@ -57,3 +58,7 @@ func set_gravity(dir: Vector2) -> void:
 #------------------- met à jour la gravité quand moitié du niveau dépassée -------------------	
 func _integrate_forces(state) -> void:
 	state.linear_velocity += custom_gravity * state.step  # modification de la vélocité linéaire de l'objet
+	var current_speed = state.linear_velocity.length()
+	
+	if current_speed > max_speed:
+		state.linear_velocity = state.linear_velocity.normalized() * max_speed

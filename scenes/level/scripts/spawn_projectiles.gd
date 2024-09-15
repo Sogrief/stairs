@@ -43,7 +43,7 @@ func _process(delta):
 	timer -= delta
 	
 	if timer < 0.0:
-		timer = randf_range(2 - path_follow_progress(), 3 - path_follow_progress())
+		timer = randf_range(2 - path_follow_progress(), 3 - path_follow_progress()) # timer dépendant de la progression du joueur
 		
 		# ajout d'un nouveau projectile_scene
 		var projectile_instance = projectile_scene.instantiate() # création d'une instance du projectile_scene
