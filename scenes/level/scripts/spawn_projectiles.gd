@@ -10,7 +10,7 @@ extends Node2D
 var progress_add : float = 0.03 # progression ajoutée en plus de celle du joueur au spawner de projectiles
 var path_points : Array # l'ensemble des points du path2D
 var closest_point : Vector2 # point du path le plus proche du joueur
-var timer : float # le délai entre chaque projectile_scene compris entre 0.4 et 3.0
+var timer : float # l'intervale d'apparition des projectiles
 
 
 signal half_level_reached
