@@ -19,9 +19,11 @@ var max_speed : float = 800.0
 
 #------------------- les différentes tailles de projectiles -------------------
 enum SIZE {
-	SMALL = 0,
-	MEDIUM = 1,
-	BIG = 2
+	SMALL_1 = 0,
+	SMALL_2 = 1,
+	MEDIUM_1 = 2,
+	MEDIUM_2 = 3,
+	BIG_1 = 4
 }
 
 signal player_collision #signal envoyé lors de la collision de ce projectile avec le joueur
