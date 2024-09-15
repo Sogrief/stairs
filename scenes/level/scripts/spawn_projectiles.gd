@@ -10,7 +10,8 @@ extends Node2D
 var progress_add : float = 0.03 # progression ajoutée en plus de celle du joueur au spawner de projectiles
 var path_points : Array # l'ensemble des points du path2D
 var closest_point : Vector2 # point du path le plus proche du joueur
-var timer : float = (randf() * 2.6) + 0.4 # le délai entre chaque projectile_scene compris entre 0.4 et 3.0
+var timer : float # le délai entre chaque projectile_scene compris entre 0.4 et 3.0
+
 
 signal half_level_reached
 
@@ -42,7 +43,7 @@ func _process(delta):
 	timer -= delta
 	
 	if timer < 0.0:
-		timer = (randf() * 2.6) + 0.4
+		timer = randf_range(2 - path_follow_progress(), 3 - path_follow_progress())
 		
 		# ajout d'un nouveau projectile_scene
 		var projectile_instance = projectile_scene.instantiate() # création d'une instance du projectile_scene

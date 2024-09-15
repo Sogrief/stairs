@@ -36,7 +36,7 @@ func _process(delta):
 	#------------------- suppression du projectile si très loin du personnage -------------------
 	var distance_from_player : int = global_position.distance_to(player_ref.global_position) # distance du projectile avec le joueur
 	
-	if distance_from_player > 15000: # si la distance est loin en dehors de l'écran du joueur
+	if distance_from_player > 6000: # si la distance est loin en dehors de l'écran du joueur
 		queue_free() # le projectile est supprimmé
 	
 #------------------- mise à jour des propriétés du projectile lors de la réception du signal -------------------
@@ -49,7 +49,6 @@ func projectile_update_size() -> void:
 func _on_area_2d_body_entered(body):
 	if body is player:
 		player_collision.emit()
-		
 		
 #------------------- modifie la varialbe de gravité -------------------	
 func set_gravity(dir: Vector2) -> void:
