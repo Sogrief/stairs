@@ -29,22 +29,6 @@ position = Vector2(502, -85)
 script = ExtResource("3_gllfd")
 projectile_scene = ExtResource("3_6vax7")
 
-[node name="border" type="CanvasLayer" parent="."]
-
-[node name="margin-container" type="MarginContainer" parent="border"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = -20
-theme_override_constants/margin_top = -20
-theme_override_constants/margin_right = -20
-theme_override_constants/margin_bottom = -20
-
-[node name="spawn_projectile_border" type="ReferenceRect" parent="border/margin-container"]
-layout_mode = 2
-
 [node name="game_over_menu" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 visible = false

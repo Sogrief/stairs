@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://pklwlhm18nvx"]
+[gd_scene load_steps=4 format=3 uid="uid://pklwlhm18nvx"]
 
 [ext_resource type="Texture2D" uid="uid://dyiyir2y3vruv" path="res://scenes/stairs/assets/tile_set_base.jpg" id="1_fq07o"]
-[ext_resource type="Texture2D" uid="uid://cewplfwpr0xwp" path="res://scenes/stairs/assets/repère.png" id="2_2vq61"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ea1ys"]
 texture = ExtResource("1_fq07o")
@@ -16,14 +15,7 @@ tile_size = Vector2i(64, 64)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_ea1ys")
 
-[node name="Stairs" type="Node2D"]
-
-[node name="Repère2" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(1007, -22641)
-rotation = 3.14159
-scale = Vector2(175.279, 175.279)
-texture = ExtResource("2_2vq61")
+[node name="stairs" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(-378, 491)
