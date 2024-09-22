@@ -40,7 +40,7 @@ func _physics_process(delta):
 	else:
 		dash_count_on_air = 0
 
-	if Input.is_action_pressed("jump") and (is_on_floor() || jump_count > 0): # si le joueur saute et est au sol ou touche un mur
+	if Input.is_action_just_pressed("jump") and (is_on_floor() || jump_count > 0): # si le joueur saute et est au sol ou touche un mur
 		jump_count = 0
 		velocity.y = JUMP_VELOCITY
 
@@ -92,7 +92,6 @@ func double_tap():
 					if !is_on_floor():
 						dash_count_on_air += 1
 						jump_count += 1
-				
 				
 		else:
 			tap_count_right = 0

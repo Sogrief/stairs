@@ -12,6 +12,7 @@ radius = 37.0
 height = 108.0
 
 [node name="player" type="CharacterBody2D" groups=["player"]]
+collision_mask = 3
 script = ExtResource("1_ow7tb")
 
 [node name="sprite_2d" type="Sprite2D" parent="."]
@@ -30,6 +31,7 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_5etb8")
 
 [node name="camera_2d" type="Camera2D" parent="."]
+zoom = Vector2(0.8, 0.8)
 
 [node name="delay_between_dash" type="Timer" parent="."]
 
