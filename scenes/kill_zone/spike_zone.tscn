@@ -3,7 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://klrigd1gv5bd" path="res://scenes/kill_zone/kill_zone.tscn" id="1_7uktq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d377r"]
-height = 40.0
+radius = 12.0
+height = 24.0
 
 [node name="kill_zone" instance=ExtResource("1_7uktq")]
 

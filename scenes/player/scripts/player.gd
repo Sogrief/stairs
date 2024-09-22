@@ -21,6 +21,7 @@ var dash_time : float # temps restant du dash en cours
 var tap_count_right : int = 0 # nombre de fois que arrow_right a été pressé dans un cours labste de temps
 var tap_count_left : int = 0 # nombre de fois que arrow_left a été pressé dans un cours labste de temps
 var can_dash : bool = true
+var can_break_projectile : bool = false # est ce que le joueur peut casser un projectile
 var absolute_direction : float # dernière direction à droite ou à gauche, soit une varialbe égale à 1 ou -1
 var prev_absolute_dir : float # précédente valeur de la variable absolute_direction
 var dash_count_on_air : int = 0 # nombre de dash sans toucher le sol
@@ -56,7 +57,14 @@ func _physics_process(delta):
 	double_tap()
 	dash(direction, absolute_direction)
 	
+	if dash_time > 0 && abs(velocity.x) > 1000: # si en cours de dash et vitesse suffisante
+		can_break_projectile = true
+	else:
+		can_break_projectile = false
+	
 	move_and_slide()
+	
+	print(can_break_projectile)
 
 #------------------- fonction de double tap -------------------
 func double_tap():
@@ -103,7 +111,7 @@ func double_tap():
 			double_tap_interval = 0.5
 			tap_count_right = 0
 			tap_count_left = 0
-		
+			
 #------------------- fonction de dash -------------------
 func dash(dash_direction, absolute_dir):
 	var direction_change : bool
@@ -132,6 +140,11 @@ func _on_area_2d_body_entered(body):
 		if velocity.y > wall_jump_sensitivity:
 			jump_count = 1
 			dash_count_on_air = 0
+	
+	if body is projectile:
+		if can_break_projectile: # si le joueur peut briser un projectile
+			body.queue_free()
+		
 
 func _on_area_2d_body_exited(body):
 	if body is TileMap:
