@@ -1,6 +1,6 @@
 extends TileMap
 
-var spike_zone = preload("res://scenes/kill_zone/spike_zone.tscn")
+@export var spike_zone : PackedScene
 var spike_zone_layer : int = 1
 
 func _ready():
@@ -15,3 +15,4 @@ func add_spike_zones():
 		var spike_instance = spike_zone.instantiate()
 		add_child(spike_instance)
 		spike_instance.position = map_to_local(spikes_tiles[i])
+			
