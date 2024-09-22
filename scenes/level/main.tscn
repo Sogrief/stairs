@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dlh4j7baqcd0a"]
+[gd_scene load_steps=8 format=3 uid="uid://dlh4j7baqcd0a"]
 
 [ext_resource type="Script" path="res://scenes/level/scripts/game_manager.gd" id="1_jtdce"]
 [ext_resource type="PackedScene" uid="uid://pklwlhm18nvx" path="res://scenes/stairs/stair.tscn" id="1_x3s6r"]
@@ -6,17 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://d3pv7pb8xkfho" path="res://scenes/projectiles/projectile.tscn" id="3_6vax7"]
 [ext_resource type="Script" path="res://scenes/level/scripts/spawn_projectiles.gd" id="3_gllfd"]
 [ext_resource type="Texture2D" uid="uid://dyiyir2y3vruv" path="res://scenes/stairs/assets/tile_set_base.jpg" id="6_mlxdq"]
-[ext_resource type="PackedScene" uid="uid://klrigd1gv5bd" path="res://scenes/kill_zone/kill_zone.tscn" id="7_wo5rn"]
 
 [sub_resource type="Curve2D" id="Curve2D_5dean"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 2669, 152, 0, 0, 0, 0, 2949, 141, 0, 0, 0, 0, 3171, 131, 0, 0, 0, 0, 3445, 111, 0, 0, 0, 0, 3633, 106, 0, 0, 0, 0, 3805, 93, 0, 0, 0, 0, 3975, 81, 0, 0, 0, 0, 4133, 77, 0, 0, 0, 0, 4338, 55, 0, 0, 0, 0, 4521, -8, 0, 0, 0, 0, 4629, -47, 0, 0, 0, 0, 4699, -72, 0, 0, 0, 0, 4866, -137, 0, 0, 0, 0, 5142, -243, 0, 0, 0, 0, 5427, -362, 0, 0, 0, 0, 5772, -488, 0, 0, 0, 0, 6012, -556, 0, 0, 0, 0, 6357, -641, 0, 0, 0, 0, 6597, -703, 0, 0, 0, 0, 6897, -775, 0, 0, 0, 0, 7223, -838, 0, 0, 0, 0, 7457, -901, 0, 0, 0, 0, 7736, -979, 0, 0, 0, 0, 7955, -1051, 0, 0, 0, 0, 8285, -1155, 0, 0, 0, 0, 8649, -1271, 0, 0, 0, 0, 9053, -1415, 0, 0, 0, 0, 9349, -1523, 0, 0, 0, 0, 9865, -1719, 0, 0, 0, 0, 10057, -1795, 0, 0, 0, 0, 10317, -1939, 0, 0, 0, 0, 10821, -2171, 0, 0, 0, 0, 11325, -2383, 0, 0, 0, 0, 11624, -2550, 0, 0, 0, 0, 11870, -2731, 0, 0, 0, 0, 12361, -2994, 0, 0, 0, 0, 12764, -3229, 0, 0, 0, 0, 13074, -3384, 0, 0, 0, 0, 13383, -3539, 0, 0, 0, 0, 13716, -3735, 0, 0, 0, 0, 14077, -4033, 0, 0, 0, 0, 14753, -4470, 0, 0, 0, 0, 15095, -4784, 0, 0, 0, 0, 15485, -4993, 0, 0, 0, 0, 15818, -5250, 0, 0, 0, 0, 16215, -5616, 0, 0, 0, 0, 16712, -6249, 0, 0, 0, 0, 17188, -6839, 0, 0, 0, 0, 17740, -7391, 0, 0, 0, 0, 18092, -7809, 0, 0, 0, 0, 18425, -8095, 0, 0, 0, 0, 18834, -8635, 0, 0, 0, 0, 19248, -9081, 0, 0, 0, 0, 20003, -9884, 0, 0, 0, 0, 20459, -10363, 0, 0, 0, 0, 20829, -10830, 0, 0, 0, 0, 21214, -11574, 0, 0, 0, 0, 21573, -12113, 0, 0, 0, 0, 21717, -12641, 0, 0, 0, 0, 22036, -13291, 0, 0, 0, 0, 22275, -13755, 0, 0, 0, 0, 22544, -14319, 0, 0, 0, 0, 22800, -14979, 0, 0, 0, 0, 23015, -15651, 0, 0, 0, 0, 23163, -16082, 0, 0, 0, 0, 23257, -16539, 0, 0, 0, 0, 23338, -16916, 0, 0, 0, 0, 23419, -17374, 0, 0, 0, 0, 23513, -18127, 0, 0, 0, 0, 23580, -18990, 0, 0, 0, 0, 23708, -19760, 0, 0, 0, 0, 23851, -20273, 0, 0, 0, 0, 23951, -20786, 0, 0, 0, 0, 24036, -21370, 0, 0, 0, 0, 24065, -22012, 0, 0, 0, 0, 24036, -22611, 0, 0, 0, 0, 24065, -23238, 0, 0, 0, 0, 23993, -23779, 0, 0, 0, 0, 23922, -24122, 0, 0, 0, 0, 23808, -24906, 0, 0, 0, 0, 23694, -25561, 0, 0, 0, 0, 23623, -25989, 0, 0, 0, 0, 23437, -26545, 0, 0, 0, 0, 23281, -27015, 0, 0, 0, 0, 23095, -27600, 0, 0, 0, 0, 22808, -28461, 0, 0, 0, 0, 22617, -29229, 0, 0, 0, 0, 22377, -29852, 0, 0, 0, 0, 22209, -30523, 0, 0, 0, 0, 21921, -31194, 0, 0, 0, 0, 21610, -31866, 0, 0, 0, 0, 21442, -32369, 0, 0, 0, 0, 21035, -32992, 0, 0, 0, 0, 20747, -33520, 0, 0, 0, 0, 20483, -34023, 0, 0, 0, 0, 19908, -34862, 0, 0, 0, 0, 19284, -35845, 0, 0, 0, 0, 18829, -36612, 0, 0, 0, 0, 18134, -37307, 0, 0, 0, 0, 17702, -37787, 0, 0, 0, 0, 17007, -38410, 0, 0, 0, 0, 16336, -39201, 0, 0, 0, 0, 15689, -39705, 0, 0, 0, 0, 15185, -40088, 0, 0, 0, 0, 14706, -40376, 0, 0, 0, 0, 14106, -40903, 0, 0, 0, 0, 13627, -41263, 0, 0, 0, 0, 12860, -41718, 0, 0, 0, 0, 12284, -42150, 0, 0, 0, 0, 11493, -42558, 0, 0, 0, 0, 10510, -43109, 0, 0, 0, 0, 9959, -43421, 0, 0, 0, 0, 9120, -43804, 0, 0, 0, 0, 8185, -43996, 0, 0, 0, 0, 7538, -44308, 0, 0, 0, 0, 6387, -44547, 0, 0, 0, 0, 5596, -44763, 0, 0, 0, 0, 4685, -44907, 0, 0, 0, 0, 3894, -44907, 0, 0, 0, 0, 3271, -45003, 0, 0, 0, 0, 2575, -45003, 0, 0, 0, 0, 1976, -44955, 0, 0, 0, 0, 1449, -44979, 0, 0, 0, 0, 1017, -45003, 0, 0, 0, 0, 681, -45003, 0, 0, 0, 0, 370, -45003)
 }
 point_count = 126
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4nrgu"]
-radius = 13.0
-height = 52.0
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_jtdce")
@@ -81,36 +76,5 @@ rotation = -0.0392655
 [node name="projectile_launcher" type="Sprite2D" parent="path_2d/path_follow_2d"]
 unique_name_in_owner = true
 texture = ExtResource("6_mlxdq")
-
-[node name="spikes" type="Node2D" parent="."]
-position = Vector2(515, -527)
-
-[node name="kill_zone" parent="spikes" instance=ExtResource("7_wo5rn")]
-position = Vector2(1880, 856)
-
-[node name="collision_shape_2d" type="CollisionShape2D" parent="spikes/kill_zone"]
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_4nrgu")
-
-[node name="kill_zone2" parent="spikes" instance=ExtResource("7_wo5rn")]
-position = Vector2(1496, 856)
-
-[node name="collision_shape_2d" type="CollisionShape2D" parent="spikes/kill_zone2"]
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_4nrgu")
-
-[node name="kill_zone3" parent="spikes" instance=ExtResource("7_wo5rn")]
-position = Vector2(1560, 856)
-
-[node name="collision_shape_2d" type="CollisionShape2D" parent="spikes/kill_zone3"]
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_4nrgu")
-
-[node name="kill_zone4" parent="spikes" instance=ExtResource("7_wo5rn")]
-position = Vector2(1945, 856)
-
-[node name="collision_shape_2d" type="CollisionShape2D" parent="spikes/kill_zone4"]
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_4nrgu")
 
 [connection signal="pressed" from="game_over_menu/menu/center_container/vbox_container/button" to="." method="_on_button_pressed"]

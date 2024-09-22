@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://b75awoy5hsip6"]
+
+[ext_resource type="PackedScene" uid="uid://klrigd1gv5bd" path="res://scenes/kill_zone/kill_zone.tscn" id="1_7uktq"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d377r"]
+height = 40.0
+
+[node name="kill_zone" instance=ExtResource("1_7uktq")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_d377r")
