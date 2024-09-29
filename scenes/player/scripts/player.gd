@@ -147,11 +147,6 @@ func _on_area_2d_body_entered(body):
 	if body is projectile:
 		if can_break_projectile: # si le joueur peut briser un projectile
 			body.queue_free()
-		
-
-func _on_area_2d_body_exited(body):
-	if body is TileMap:
-		pass
 
 func _on_delay_between_dash_timeout():
 	can_dash = true
