@@ -3,6 +3,7 @@ extends CharacterBody2D
 
 @onready var game_over_menu : CanvasLayer = %game_over_menu
 @onready var delay_between_dash = $delay_between_dash
+@onready var wall_jump_collision_shape = $area_2d/area_collision_shape_2d
 
 #------------------- constantes -------------------
 const SPEED : float = 300.0
@@ -13,6 +14,7 @@ const JUMP_VELOCITY : float = -620.0
 var gravity : int = 980
 var jump_count : int = 0
 var wall_jump_sensitivity : int = 10 # velocité minimale en y pour pouvoir effectuer le prochain wall jump
+var wall_jump_shape_height : int = 122
 
 # fonctionnalité de dash
 @export var double_tap_interval : float = 0.3 # délai en secondes entre deux pressions de touches pour détecter un dash
@@ -25,6 +27,7 @@ var can_break_projectile : bool = false # est ce que le joueur peut casser un pr
 var absolute_direction : float # dernière direction à droite ou à gauche, soit une varialbe égale à 1 ou -1
 var prev_absolute_dir : float # précédente valeur de la variable absolute_direction
 var dash_count_on_air : int = 0 # nombre de dash sans toucher le sol
+	
 
 func _physics_process(delta):
 	#SceneTreeTimer
@@ -59,12 +62,12 @@ func _physics_process(delta):
 	
 	if dash_time > 0 && abs(velocity.x) > 1000: # si en cours de dash et vitesse suffisante
 		can_break_projectile = true
+		wall_jump_collision_shape.shape.height = 188
 	else:
 		can_break_projectile = false
+		wall_jump_collision_shape.shape.height = wall_jump_shape_height
 	
 	move_and_slide()
-	
-	print(can_break_projectile)
 
 #------------------- fonction de double tap -------------------
 func double_tap():
@@ -144,11 +147,6 @@ func _on_area_2d_body_entered(body):
 	if body is projectile:
 		if can_break_projectile: # si le joueur peut briser un projectile
 			body.queue_free()
-		
-
-func _on_area_2d_body_exited(body):
-	if body is TileMap:
-		pass
 
 func _on_delay_between_dash_timeout():
 	can_dash = true
