@@ -12,7 +12,6 @@ var path_points : Array # l'ensemble des points du path2D
 var closest_point : Vector2 # point du path le plus proche du joueur
 var timer : float # l'intervale d'apparition des projectiles
 
-
 signal half_level_reached
 
 func _ready():
@@ -22,7 +21,7 @@ func _ready():
 	self.global_position = projectile_launcher.global_position # initialisation de la position du spawn de projectile_scene avec celle du canon
 
 func _process(delta):
-	if path_follow_progress() >= 0.5: # si le joueur dépasse la moitié du niveau
+	if path_follow_progress() >= 0.46: # si le joueur dépasse la moitié du niveau
 		half_level_reached.emit()
 	
 	#------------------- position du spawner de projectiles -------------------
@@ -39,17 +38,23 @@ func _process(delta):
 	var launcher_direction = Vector2(cos(launcher_radiant_rotation), sin(launcher_radiant_rotation)) # direction normalisée du lanceur
 	
 	var impulse_force = 1000
+	var size_deletions = 0 # nombre de tailles supprimmées en partant des plus grosses
 	
 	timer -= delta
 	
 	if timer < 0.0:
-		timer = randf_range(2 - path_follow_progress(), 3 - path_follow_progress()) # timer dépendant de la progression du joueur
+		if path_follow_progress() < 0.46:
+			timer = randf_range(2 - path_follow_progress(), 3 - path_follow_progress()) # timer dépendant de la progression du joueur
+		
+		else:
+			timer = randf_range(5 + path_follow_progress(), 7 + path_follow_progress())
+			size_deletions = 2 # suppression des projectiles de très grosse taille
 		
 		# ajout d'un nouveau projectile_scene
 		var projectile_instance = projectile_scene.instantiate() # création d'une instance du projectile_scene
 		get_tree().current_scene.add_child(projectile_instance) # ajout du projectile_scene à la scène
 		projectile_instance.global_position = self.global_position # spécifie la position du projectile_scene égale à celle du spawner
-		projectile_instance.size = randi_range(0, projectile.SIZE.size() - 1) # randomisation de la taille des projectiles a leur apparition
+		projectile_instance.size = randi_range(0, projectile.SIZE.size() - (1 + size_deletions)) # randomisation de la taille des projectiles a leur apparition
 		projectile_instance.apply_impulse(launcher_direction * -impulse_force) # ajout d'une impulsion au projectile
 		
 		# changement de gravité quand le joueur atteint la moitié du niveau
