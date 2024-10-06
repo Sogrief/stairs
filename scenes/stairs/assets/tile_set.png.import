@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://x0qrurljnqh1"
-path="res://.godot/imported/Circle-4000x4000-download.svg-82d0c1ee5c57e94f89d8bd3a9c5962cf.ctex"
+uid="uid://dauky607r0on4"
+path="res://.godot/imported/tile_set.png-4daf4d903be31e893aaca4b35a731971.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/stairs/assets/Circle-4000x4000-download.svg"
-dest_files=["res://.godot/imported/Circle-4000x4000-download.svg-82d0c1ee5c57e94f89d8bd3a9c5962cf.ctex"]
+source_file="res://scenes/stairs/assets/tile_set.png"
+dest_files=["res://.godot/imported/tile_set.png-4daf4d903be31e893aaca4b35a731971.ctex"]
 
 [params]
 
@@ -32,6 +32,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

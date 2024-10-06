@@ -8,7 +8,7 @@ var max_speed : float = 800.0
 #------------------- propriétés du projectile à changer lorsque sa taille change -------------------
 @onready var sprite_2d = $sprite_2d
 @onready var collision_shape_2d = $collision_shape_2d
-@onready var area_collision_shape_2d = $area_2d/collision_shape_2d
+@onready var area_collision_shape_2d = $kill_zone/collision_shape_2d
 
 @export var projectile_size_array : Array[projectile_size] # tableau contenant des ressources de type projectile_size
 @export var size : SIZE:
@@ -26,7 +26,6 @@ enum SIZE {
 	BIG_1 = 4
 }
 
-signal player_collision #signal envoyé lors de la collision de ce projectile avec le joueur
 signal size_changed # signal envoyé lorsque la size du projectile est mise à jour
 
 func _ready() -> void:
@@ -47,11 +46,6 @@ func projectile_update_size() -> void:
 	sprite_2d.scale = projectile_size_array[size].sprite_scale # taille du sprite 2D
 	collision_shape_2d.shape = projectile_size_array[size].collision_shape # taille du collision shape 2D
 	area_collision_shape_2d.shape = projectile_size_array[size].area_collision_shape # taille du collision shape de l'area 2D
-
-#------------------- envoi du signal de collision avec le joueur -------------------
-func _on_area_2d_body_entered(body):
-	if body is player:
-		player_collision.emit()
 		
 #------------------- modifie la varialbe de gravité -------------------	
 func set_gravity(dir: Vector2) -> void:

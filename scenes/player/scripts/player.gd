@@ -3,6 +3,7 @@ extends CharacterBody2D
 
 @onready var game_over_menu : CanvasLayer = %game_over_menu
 @onready var delay_between_dash = $delay_between_dash
+@onready var wall_jump_collision_shape = $area_2d/area_collision_shape_2d
 
 #------------------- constantes -------------------
 const SPEED : float = 300.0
@@ -13,6 +14,7 @@ const JUMP_VELOCITY : float = -620.0
 var gravity : int = 980
 var jump_count : int = 0
 var wall_jump_sensitivity : int = 10 # velocité minimale en y pour pouvoir effectuer le prochain wall jump
+var wall_jump_shape_height : int = 122
 
 # fonctionnalité de dash
 @export var double_tap_interval : float = 0.3 # délai en secondes entre deux pressions de touches pour détecter un dash
@@ -21,9 +23,11 @@ var dash_time : float # temps restant du dash en cours
 var tap_count_right : int = 0 # nombre de fois que arrow_right a été pressé dans un cours labste de temps
 var tap_count_left : int = 0 # nombre de fois que arrow_left a été pressé dans un cours labste de temps
 var can_dash : bool = true
+var can_break_projectile : bool = false # est ce que le joueur peut casser un projectile
 var absolute_direction : float # dernière direction à droite ou à gauche, soit une varialbe égale à 1 ou -1
 var prev_absolute_dir : float # précédente valeur de la variable absolute_direction
 var dash_count_on_air : int = 0 # nombre de dash sans toucher le sol
+	
 
 func _physics_process(delta):
 	#SceneTreeTimer
@@ -55,6 +59,13 @@ func _physics_process(delta):
 	#------------------- dash du personnage -------------------
 	double_tap()
 	dash(direction, absolute_direction)
+	
+	if dash_time > 0 && abs(velocity.x) > 1000: # si en cours de dash et vitesse suffisante
+		can_break_projectile = true
+		wall_jump_collision_shape.shape.height = 188
+	else:
+		can_break_projectile = false
+		wall_jump_collision_shape.shape.height = wall_jump_shape_height
 	
 	move_and_slide()
 
@@ -103,7 +114,7 @@ func double_tap():
 			double_tap_interval = 0.5
 			tap_count_right = 0
 			tap_count_left = 0
-		
+			
 #------------------- fonction de dash -------------------
 func dash(dash_direction, absolute_dir):
 	var direction_change : bool
@@ -132,10 +143,10 @@ func _on_area_2d_body_entered(body):
 		if velocity.y > wall_jump_sensitivity:
 			jump_count = 1
 			dash_count_on_air = 0
-
-func _on_area_2d_body_exited(body):
-	if body is TileMap:
-		pass
+	
+	if body is projectile:
+		if can_break_projectile: # si le joueur peut briser un projectile
+			body.queue_free()
 
 func _on_delay_between_dash_timeout():
 	can_dash = true
