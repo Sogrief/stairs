@@ -1,12 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://d3pv7pb8xkfho"]
+[gd_scene load_steps=22 format=3 uid="uid://d3pv7pb8xkfho"]
 
 [ext_resource type="Script" path="res://scenes/projectiles/scripts/projectile.gd" id="1_8ye1t"]
 [ext_resource type="Texture2D" uid="uid://21qwpm55fcqs" path="res://scenes/projectiles/assets/projectile.png" id="1_fvof1"]
 [ext_resource type="Script" path="res://ressources/projectiles_size/projectile_size.gd" id="2_xvwdh"]
+[ext_resource type="PackedScene" uid="uid://klrigd1gv5bd" path="res://scenes/kill_zone/kill_zone.tscn" id="4_wbu2o"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vssvg"]
 friction = 0.0
-bounce = 0.51
+bounce = 0.5
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_55cdj"]
 radius = 13.8
@@ -21,48 +22,73 @@ area_collision_shape = SubResource("CircleShape2D_55cdj")
 collision_shape = SubResource("CircleShape2D_805ij")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sjwtf"]
-radius = 69.01
+radius = 41.4
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6fv34"]
-radius = 61.01
+radius = 36.6
 
 [sub_resource type="Resource" id="Resource_ko8hp"]
 script = ExtResource("2_xvwdh")
-sprite_scale = Vector2(0.5, 0.5)
+sprite_scale = Vector2(0.3, 0.3)
 area_collision_shape = SubResource("CircleShape2D_sjwtf")
 collision_shape = SubResource("CircleShape2D_6fv34")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2hu4v"]
-radius = 138.0
+radius = 69.01
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5aun5"]
-radius = 122.02
+radius = 61.01
 
 [sub_resource type="Resource" id="Resource_7332x"]
 script = ExtResource("2_xvwdh")
-sprite_scale = Vector2(1, 1)
+sprite_scale = Vector2(0.5, 0.5)
 area_collision_shape = SubResource("CircleShape2D_2hu4v")
 collision_shape = SubResource("CircleShape2D_5aun5")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w3y6c"]
+radius = 96.6
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_stub4"]
+radius = 85.4
+
+[sub_resource type="Resource" id="Resource_51n30"]
+script = ExtResource("2_xvwdh")
+sprite_scale = Vector2(0.7, 0.7)
+area_collision_shape = SubResource("CircleShape2D_w3y6c")
+collision_shape = SubResource("CircleShape2D_stub4")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1ffok"]
+radius = 138.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sv0fd"]
+radius = 122.02
+
+[sub_resource type="Resource" id="Resource_l08qr"]
+script = ExtResource("2_xvwdh")
+sprite_scale = Vector2(1, 1)
+area_collision_shape = SubResource("CircleShape2D_1ffok")
+collision_shape = SubResource("CircleShape2D_sv0fd")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n0gab"]
+radius = 41.4
 
 [node name="projectile" type="RigidBody2D"]
 mass = 0.5
 physics_material_override = SubResource("PhysicsMaterial_vssvg")
 gravity_scale = 0.6
 script = ExtResource("1_8ye1t")
-projectile_size_array = Array[ExtResource("2_xvwdh")]([SubResource("Resource_2db6r"), SubResource("Resource_ko8hp"), SubResource("Resource_7332x")])
+projectile_size_array = Array[ExtResource("2_xvwdh")]([SubResource("Resource_2db6r"), SubResource("Resource_ko8hp"), SubResource("Resource_7332x"), SubResource("Resource_51n30"), SubResource("Resource_l08qr")])
 size = 1
 
 [node name="sprite_2d" type="Sprite2D" parent="."]
 rotation = 3.14159
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("1_fvof1")
 
-[node name="area_2d" type="Area2D" parent="."]
+[node name="kill_zone" parent="." instance=ExtResource("4_wbu2o")]
 
-[node name="collision_shape_2d" type="CollisionShape2D" parent="area_2d"]
-shape = SubResource("CircleShape2D_sjwtf")
+[node name="collision_shape_2d" type="CollisionShape2D" parent="kill_zone"]
+shape = SubResource("CircleShape2D_n0gab")
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_6fv34")
-
-[connection signal="body_entered" from="area_2d" to="." method="_on_area_2d_body_entered"]
